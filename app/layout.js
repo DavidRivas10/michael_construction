@@ -1,5 +1,6 @@
 import "./globals.css";
 import { getConfig } from "@/lib/db";
+import IntroLoader from "@/components/IntroLoader";
 
 // NOTA: intentamos next/font/google (auto-hosting + sin layout shift), pero
 // el entorno de build de este sandbox no tiene salida de red hacia Google
@@ -40,6 +41,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
+        <IntroLoader businessName={config.businessName} />
         {children}
         <script
           type="application/ld+json"
