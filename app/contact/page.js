@@ -4,7 +4,12 @@ import LeadForm from "@/components/LeadForm";
 import { IconPhone, IconMapPin } from "@/components/Icons";
 import { getConfig } from "@/lib/db";
 
-export default function ContactoPage() {
+export const metadata = {
+  title: "Contact",
+  description: "Get in touch with Michael Construction for a free painting or home repair estimate.",
+};
+
+export default function ContactPage() {
   const config = getConfig();
 
   return (
@@ -12,10 +17,10 @@ export default function ContactoPage() {
       <SiteHeader config={config} />
       <section className="mx-auto grid max-w-5xl grid-cols-1 gap-14 px-6 py-20 md:grid-cols-2">
         <div>
-          <div className="eyebrow mb-3">Contacto</div>
-          <h1 className="mb-4 font-display text-5xl font-black uppercase text-ink">Cuéntanos del proyecto</h1>
+          <div className="eyebrow mb-3">Contact</div>
+          <h1 className="mb-4 font-display text-5xl font-black uppercase text-ink">Tell us about your project</h1>
           <p className="mb-8 text-lg text-ink-soft">
-            Michael responde personalmente, casi siempre el mismo día, por teléfono, WhatsApp o correo.
+            Michael responds personally, almost always the same day, by phone, text, or email.
           </p>
           <div className="flex flex-col gap-4 text-[15px] font-bold text-ink">
             <a href={`tel:${config.phone}`} className="flex items-center gap-3">
@@ -27,7 +32,7 @@ export default function ContactoPage() {
           </div>
         </div>
         <div className="border border-line bg-white p-8">
-          <LeadForm ctaLabel="Enviar mensaje" />
+          <LeadForm ctaLabel="Send Message" showUrgencyCheckbox />
         </div>
       </section>
       <SiteFooter />

@@ -6,7 +6,12 @@ import { getConfig, listServices } from "@/lib/db";
 
 const ICONS = { interior: IconBrush, exterior: IconHouse, reparacion: IconWrench };
 
-export default function ServiciosPage() {
+export const metadata = {
+  title: "Painting & Repair Services",
+  description: "Interior painting, exterior painting, and home repairs in Virginia — one crew, start to finish.",
+};
+
+export default function ServicesPage() {
   const config = getConfig();
   const services = listServices();
 
@@ -14,10 +19,10 @@ export default function ServiciosPage() {
     <>
       <SiteHeader config={config} />
       <section className="mx-auto max-w-4xl px-6 py-20 text-center">
-        <div className="eyebrow mb-3">Servicios</div>
-        <h1 className="mb-4 font-display text-5xl font-black uppercase text-ink">Todo lo que tu casa necesita</h1>
+        <div className="eyebrow mb-3">Services</div>
+        <h1 className="mb-4 font-display text-5xl font-black uppercase text-ink">Everything your home needs</h1>
         <p className="mx-auto max-w-xl text-lg text-ink-soft">
-          Nada de subcontratistas desconocidos: el mismo equipo que cotiza es el que llega a trabajar.
+          No unknown subcontractors — the same crew that quotes the job is the one that shows up to do it.
         </p>
       </section>
 
@@ -48,8 +53,8 @@ export default function ServiciosPage() {
         </div>
 
         <div className="mt-14 flex flex-col items-center gap-5 bg-charcoal px-8 py-12 text-center">
-          <h3 className="font-display text-2xl font-bold uppercase text-white">¿Cuál de estos necesitas?</h3>
-          <Link href="/estimado" className="btn-primary">Calcular mi precio</Link>
+          <h3 className="font-display text-2xl font-bold uppercase text-white">Which one do you need?</h3>
+          <Link href="/estimate" className="btn-primary">Get My Price</Link>
         </div>
       </section>
       <SiteFooter />

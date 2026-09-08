@@ -1,0 +1,58 @@
+[
+  {
+    "serviceId": "interior",
+    "label": "Interior Painting",
+    "pricingModel": "tiered",
+    "allowAutoEstimate": true,
+    "minimumPrice": 350,
+    "tiers": {
+      "small": { "label": "Small (1 room / touch-up area)", "min": 600, "max": 950 },
+      "medium": { "label": "Medium (several rooms / partial home)", "min": 1200, "max": 1800 },
+      "large": { "label": "Large (whole house)", "min": 2200, "max": 3400 }
+    },
+    "conditionMultipliers": { "good": 0.94, "fair": 1.0, "poor": 1.22 },
+    "addOns": [
+      { "id": "ceilings", "label": "Ceilings included", "price": 180 },
+      { "id": "trim", "label": "Trim & doors", "price": 150 },
+      { "id": "cabinets", "label": "Cabinet painting", "price": 420 }
+    ],
+    "disclaimer": "This is an initial estimate based on the information provided. Final pricing may change after an on-site assessment."
+  },
+  {
+    "serviceId": "exterior",
+    "label": "Exterior Painting",
+    "pricingModel": "tiered",
+    "allowAutoEstimate": true,
+    "minimumPrice": 900,
+    "tiers": {
+      "small": { "label": "Small (single-story, partial)", "min": 1400, "max": 2100 },
+      "medium": { "label": "Medium (two-story or full siding)", "min": 2800, "max": 4200 },
+      "large": { "label": "Large (large home / multiple structures)", "min": 4800, "max": 7200 }
+    },
+    "conditionMultipliers": { "good": 0.94, "fair": 1.0, "poor": 1.22 },
+    "addOns": [
+      { "id": "pressure-wash", "label": "Pressure washing", "price": 220 },
+      { "id": "deck", "label": "Deck / fence included", "price": 380 },
+      { "id": "trim-exterior", "label": "Trim & shutters", "price": 260 }
+    ],
+    "disclaimer": "This is an initial estimate based on the information provided. Final pricing may change after an on-site assessment."
+  },
+  {
+    "serviceId": "reparacion",
+    "label": "Home Repairs",
+    "pricingModel": "tiered",
+    "allowAutoEstimate": true,
+    "minimumPrice": 150,
+    "tiers": {
+      "small": { "label": "Small (single fix)", "min": 250, "max": 500 },
+      "medium": { "label": "Medium (several items)", "min": 600, "max": 1200 },
+      "large": { "label": "Large (multi-room repair)", "min": 1400, "max": 2600 }
+    },
+    "conditionMultipliers": { "good": 0.94, "fair": 1.0, "poor": 1.22 },
+    "addOns": [
+      { "id": "drywall", "label": "Drywall replacement", "price": 240 },
+      { "id": "carpentry", "label": "Carpentry work", "price": 300 }
+    ],
+    "disclaimer": "This is an initial estimate based on the information provided. Final pricing may change after an on-site assessment."
+  }
+]

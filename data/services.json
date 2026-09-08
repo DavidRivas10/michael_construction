@@ -1,20 +1,20 @@
 [
   {
     "id": "interior",
-    "title": "Pintura interior",
-    "shortDesc": "Paredes, techos, molduras y gabinetes, con prep cuidadosa y acabados parejos.",
-    "items": ["Paredes y techos", "Molduras y puertas", "Gabinetes de cocina", "Reparación de drywall antes de pintar"]
+    "title": "Interior Painting",
+    "shortDesc": "Walls, ceilings, trim and cabinets, with careful prep and even, lasting finishes.",
+    "items": ["Walls & ceilings", "Trim & doors", "Kitchen cabinets", "Drywall repair before painting"]
   },
   {
     "id": "exterior",
-    "title": "Pintura exterior",
-    "shortDesc": "Productos resistentes al clima para que la fachada aguante varios inviernos.",
-    "items": ["Fachadas y siding", "Decks y cercas", "Molduras exteriores", "Lavado a presión previo"]
+    "title": "Exterior Painting",
+    "shortDesc": "Weather-resistant products so your home's exterior holds up through the seasons.",
+    "items": ["Siding & facades", "Decks & fences", "Exterior trim", "Pressure washing before painting"]
   },
   {
     "id": "reparacion",
-    "title": "Reparaciones del hogar",
-    "shortDesc": "Los arreglos que la mayoría de contratistas no toma, resueltos por el mismo equipo.",
-    "items": ["Drywall y goteras", "Carpintería general", "Reparación de decks", "Molduras y puertas dañadas"]
+    "title": "Home Repairs",
+    "shortDesc": "The fixes most contractors skip — handled by the same crew that paints your home.",
+    "items": ["Drywall & leaks", "General carpentry", "Deck repair", "Damaged trim & doors"]
   }
 ]

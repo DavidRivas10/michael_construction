@@ -28,11 +28,11 @@ h1, h2, h3, .font-display {
 }
 
 .btn-primary {
-  @apply inline-flex items-center justify-center gap-2 rounded-[3px] bg-gold px-7 py-3.5 text-[14.5px] font-bold uppercase tracking-wide text-charcoal transition hover:bg-gold-dark hover:text-white;
+  @apply inline-flex items-center justify-center gap-2 rounded-[3px] bg-gold px-7 py-3.5 text-[14.5px] font-bold uppercase tracking-wide text-charcoal transition hover:bg-gold-dark hover:text-white active:scale-[0.98];
 }
 
 .btn-outline {
-  @apply inline-flex items-center justify-center gap-2 rounded-[3px] border-[1.5px] border-ink px-7 py-3.5 text-[14.5px] font-bold uppercase tracking-wide text-ink transition hover:bg-ink hover:text-white;
+  @apply inline-flex items-center justify-center gap-2 rounded-[3px] border-[1.5px] border-ink px-7 py-3.5 text-[14.5px] font-bold uppercase tracking-wide text-ink transition hover:bg-ink hover:text-white active:scale-[0.98];
 }
 
 .btn-ghost {
@@ -60,4 +60,22 @@ h1, h2, h3, .font-display {
 .no-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
+}
+
+/* --- Motion: reveal-on-scroll --- */
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
 }

@@ -1,28 +1,37 @@
 import { NextResponse } from "next/server";
-import { createLead, listLeads } from "@/lib/db";
+import { createLead, listLeads, updateLead } from "@/lib/db";
 import { notifyNewLead } from "@/lib/notify";
 import { getSession } from "@/lib/auth";
+import { validateLead } from "@/lib/validate";
+import { rateLimit, getClientIp } from "@/lib/rateLimit";
 
-// Palabras que marcan un lead como urgente para disparar el aviso reforzado.
-const URGENT_WORDS = ["hoy", "urgente", "emergencia", "lo antes posible", "ya mismo"];
+// Words that flag a lead as possibly urgent — combined with the explicit
+// "esUrgente" checkbox from the form. A word match alone no longer triggers
+// an automatic call; see lib/notify.js for the full urgency scoring.
+const URGENT_WORDS = ["today", "urgent", "emergency", "asap", "right away", "flooding", "burst pipe"];
 
 export async function POST(request) {
-  const body = await request.json();
-
-  if (!body.nombre || !body.telefono) {
-    return NextResponse.json(
-      { error: "Nombre y teléfono son obligatorios." },
-      { status: 400 }
-    );
+  const ip = getClientIp(request);
+  const limit = rateLimit(`leads:${ip}`, { limit: 5, windowMs: 60_000 });
+  if (!limit.allowed) {
+    return NextResponse.json({ error: "Too many requests. Please try again in a minute." }, { status: 429 });
   }
 
-  const texto = `${body.mensaje || ""} ${body.tipoTrabajo || ""}`.toLowerCase();
-  const urgente = URGENT_WORDS.some((w) => texto.includes(w));
+  const body = await request.json();
+  const { valid, errors, clean } = validateLead(body);
+  if (!valid) {
+    return NextResponse.json({ error: errors.join(" ") }, { status: 400 });
+  }
 
-  const lead = createLead({ ...body, urgente });
-  await notifyNewLead(lead);
+  const texto = `${clean.mensaje} ${body.tipoTrabajo || ""}`.toLowerCase();
+  const hasUrgentWord = URGENT_WORDS.some((w) => texto.includes(w));
+  const urgente = hasUrgentWord && !!body.confirmaUrgencia;
 
-  return NextResponse.json({ ok: true, lead }, { status: 201 });
+  const lead = createLead({ ...body, ...clean, urgente, hasUrgentWord });
+  const notifyResult = await notifyNewLead(lead);
+  const updatedLead = updateLead(lead.id, { notified: notifyResult }) || lead;
+
+  return NextResponse.json({ ok: true, lead: updatedLead, notified: notifyResult }, { status: 201 });
 }
 
 export async function GET() {

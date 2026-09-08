@@ -1,6 +1,6 @@
 [
-  { "id": "f1", "question": "¿El estimado es realmente gratis?", "answer": "Sí. El rango que ves en el estimador con IA no tiene costo ni compromiso, y la visita para confirmar el precio exacto tampoco." },
-  { "id": "f2", "question": "¿En qué se basa el precio que me dan?", "answer": "En el tipo de trabajo, el tamaño aproximado y la condición actual que indicas, comparado con el costo real de proyectos similares. El número final siempre lo confirma Michael en persona antes de empezar." },
-  { "id": "f3", "question": "¿Cuánto tardan en responder?", "answer": "Michael revisa cada solicitud personalmente y casi siempre responde el mismo día, por teléfono, WhatsApp o correo." },
-  { "id": "f4", "question": "¿Tienen licencia y seguro?", "answer": "Sí, trabajamos con licencia y seguro vigentes — con gusto compartimos los documentos si los necesitas para tu aseguradora o HOA." }
+  { "id": "f1", "question": "Is the estimate really free?", "answer": "Yes. The range you see from the AI estimator has no cost and no obligation, and the visit to confirm the exact price is free too." },
+  { "id": "f2", "question": "What is the price based on?", "answer": "The type of project, the approximate size, and the current condition you tell us about, compared against the real cost of similar jobs. Michael always confirms the final number in person before work starts." },
+  { "id": "f3", "question": "How fast do you respond?", "answer": "Michael personally reviews every request and almost always responds the same day, by phone, text, or email." },
+  { "id": "f4", "question": "Are you licensed and insured?", "answer": "Yes, we carry active license and insurance — happy to share documentation if your insurer or HOA needs it." }
 ]

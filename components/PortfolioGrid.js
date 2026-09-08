@@ -4,17 +4,17 @@ import { useState, useMemo } from "react";
 import BeforeAfterSlider from "./BeforeAfterSlider";
 
 const FILTERS = [
-  { id: "todos", label: "Todos" },
+  { id: "all", label: "All" },
   { id: "interior", label: "Interior" },
   { id: "exterior", label: "Exterior" },
-  { id: "reparacion", label: "Reparaciones" },
+  { id: "reparacion", label: "Repairs" },
 ];
 
 export default function PortfolioGrid({ items }) {
-  const [filter, setFilter] = useState("todos");
+  const [filter, setFilter] = useState("all");
 
   const filtered = useMemo(
-    () => (filter === "todos" ? items : items.filter((i) => i.category === filter)),
+    () => (filter === "all" ? items : items.filter((i) => i.category === filter)),
     [items, filter]
   );
 
@@ -38,7 +38,7 @@ export default function PortfolioGrid({ items }) {
 
       {filtered.length === 0 ? (
         <div className="rounded-sm border border-dashed border-line py-16 text-center text-ink-faint">
-          Aún no hay proyectos en esta categoría.
+          No projects in this category yet.
         </div>
       ) : (
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">

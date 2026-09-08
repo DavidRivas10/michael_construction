@@ -1,7 +1,7 @@
 [
   {
     "id": "p1",
-    "title": "Renovación de Cocina (EJEMPLO)",
+    "title": "Kitchen Refresh (SAMPLE)",
     "category": "interior",
     "location": "[Your City], VA",
     "featured": true,
@@ -9,7 +9,7 @@
   },
   {
     "id": "p2",
-    "title": "Fachada Completa (EJEMPLO)",
+    "title": "Full Exterior Repaint (SAMPLE)",
     "category": "exterior",
     "location": "[Your City], VA",
     "featured": true,
@@ -17,7 +17,7 @@
   },
   {
     "id": "p3",
-    "title": "Deck y Cerca (EJEMPLO)",
+    "title": "Deck & Fence Repair (SAMPLE)",
     "category": "reparacion",
     "location": "[Your City], VA",
     "featured": false,

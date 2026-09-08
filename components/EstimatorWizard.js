@@ -1,31 +1,52 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { IconCamera, IconBrush, IconHouse, IconWrench } from "./Icons";
 import LeadForm from "./LeadForm";
 
-const STEPS = ["Tipo de trabajo", "Tamaño y estado", "Tu estimado"];
+const STEPS = ["Project type", "Size & condition", "Your estimate"];
 
 const TIPOS = [
-  { id: "interior", label: "Pintura interior", icon: IconBrush },
-  { id: "exterior", label: "Pintura exterior", icon: IconHouse },
-  { id: "reparacion", label: "Reparación", icon: IconWrench },
+  { id: "interior", label: "Interior painting", icon: IconBrush },
+  { id: "exterior", label: "Exterior painting", icon: IconHouse },
+  { id: "reparacion", label: "Repair", icon: IconWrench },
 ];
 
 const TAMANOS = [
-  { id: "small", label: "Pequeño", hint: "1 cuarto / sección puntual" },
-  { id: "medium", label: "Mediano", hint: "Varios cuartos / fachada parcial" },
-  { id: "large", label: "Grande", hint: "Casa completa" },
+  { id: "small", label: "Small", hint: "1 room / small area" },
+  { id: "medium", label: "Medium", hint: "Several rooms / partial exterior" },
+  { id: "large", label: "Large", hint: "Whole house" },
+];
+
+const CONDICIONES = [
+  { id: "good", label: "Good" },
+  { id: "fair", label: "Fair" },
+  { id: "poor", label: "Poor" },
 ];
 
 export default function EstimatorWizard() {
   const [step, setStep] = useState(0);
   const [tipoTrabajo, setTipoTrabajo] = useState("");
   const [tamano, setTamano] = useState("");
-  const [condicion, setCondicion] = useState("regular");
+  const [condicion, setCondicion] = useState("fair");
+  const [selectedAddOns, setSelectedAddOns] = useState([]);
   const [photoCount, setPhotoCount] = useState(0);
   const [loading, setLoading] = useState(false);
   const [estimate, setEstimate] = useState(null);
+  const [pricing, setPricing] = useState([]);
+
+  useEffect(() => {
+    fetch("/api/pricing")
+      .then((r) => r.json())
+      .then((d) => setPricing(d.pricing || []))
+      .catch(() => setPricing([]));
+  }, []);
+
+  const currentRule = pricing.find((p) => p.serviceId === tipoTrabajo);
+
+  function toggleAddOn(id) {
+    setSelectedAddOns((prev) => (prev.includes(id) ? prev.filter((a) => a !== id) : [...prev, id]));
+  }
 
   async function goToResult() {
     setLoading(true);
@@ -33,7 +54,7 @@ export default function EstimatorWizard() {
     const res = await fetch("/api/estimate", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ tipoTrabajo, tamano, condicion, hasPhotos: photoCount > 0 }),
+      body: JSON.stringify({ tipoTrabajo, tamano, condicion, addOns: selectedAddOns, hasPhotos: photoCount > 0 }),
     });
     const data = await res.json();
     setEstimate(data);
@@ -43,7 +64,7 @@ export default function EstimatorWizard() {
   return (
     <div className="mx-auto max-w-xl border border-line bg-white p-9 shadow-[0_20px_50px_rgba(20,23,28,0.06)]">
       <div className="mb-7 flex items-center gap-3">
-        <div className="font-mono text-xs font-bold text-ink-faint">PASO {step + 1} DE 3</div>
+        <div className="font-mono text-xs font-bold text-ink-faint">STEP {step + 1} OF 3</div>
         <div className="flex flex-1 gap-1.5">
           {STEPS.map((_, i) => (
             <div key={i} className={`h-[3px] flex-1 transition-colors ${i <= step ? "bg-gold" : "bg-line"}`} />
@@ -54,7 +75,7 @@ export default function EstimatorWizard() {
       {step === 0 && (
         <div>
           <h3 className="mb-1 font-display text-2xl font-bold uppercase text-ink">{STEPS[0]}</h3>
-          <p className="mb-6 text-sm text-ink-soft">Elige la opción que mejor describa tu proyecto.</p>
+          <p className="mb-6 text-sm text-ink-soft">Choose the option that best matches your project.</p>
           <div className="grid grid-cols-3 gap-3">
             {TIPOS.map((t) => (
               <button
@@ -76,7 +97,7 @@ export default function EstimatorWizard() {
             onClick={() => setStep(1)}
             className="btn-primary mt-7 w-full justify-center disabled:cursor-not-allowed disabled:opacity-30"
           >
-            Continuar
+            Continue
           </button>
         </div>
       )}
@@ -84,7 +105,7 @@ export default function EstimatorWizard() {
       {step === 1 && (
         <div>
           <h3 className="mb-1 font-display text-2xl font-bold uppercase text-ink">{STEPS[1]}</h3>
-          <p className="mb-6 text-sm text-ink-soft">Esto ayuda a afinar el rango de precio.</p>
+          <p className="mb-6 text-sm text-ink-soft">This helps narrow down your price range.</p>
 
           <div className="mb-5 grid grid-cols-3 gap-3">
             {TAMANOS.map((t) => (
@@ -102,18 +123,42 @@ export default function EstimatorWizard() {
           </div>
 
           <div className="mb-6 flex gap-3">
-            {["buena", "regular", "mala"].map((c) => (
+            {CONDICIONES.map((c) => (
               <button
-                key={c}
-                onClick={() => setCondicion(c)}
-                className={`flex-1 border-2 py-2.5 text-sm font-bold capitalize transition ${
-                  condicion === c ? "border-ink bg-paper-2 text-ink" : "border-line text-ink-soft"
+                key={c.id}
+                onClick={() => setCondicion(c.id)}
+                className={`flex-1 border-2 py-2.5 text-sm font-bold transition ${
+                  condicion === c.id ? "border-ink bg-paper-2 text-ink" : "border-line text-ink-soft"
                 }`}
               >
-                {c}
+                {c.label}
               </button>
             ))}
           </div>
+
+          {currentRule?.addOns?.length > 0 && (
+            <div className="mb-6">
+              <div className="mb-2.5 text-xs font-bold uppercase tracking-wide text-ink-faint">Add-ons (optional)</div>
+              <div className="flex flex-col gap-2">
+                {currentRule.addOns.map((a) => (
+                  <label
+                    key={a.id}
+                    className="flex cursor-pointer items-center justify-between border border-line px-3.5 py-2.5 text-sm has-[:checked]:border-ink has-[:checked]:bg-paper-2"
+                  >
+                    <span className="flex items-center gap-2.5 font-semibold text-ink">
+                      <input
+                        type="checkbox"
+                        checked={selectedAddOns.includes(a.id)}
+                        onChange={() => toggleAddOn(a.id)}
+                      />
+                      {a.label}
+                    </span>
+                    <span className="text-ink-faint">+${a.price.toLocaleString()}</span>
+                  </label>
+                ))}
+              </div>
+            </div>
+          )}
 
           <label className="mb-7 flex cursor-pointer items-center gap-4 border-[1.5px] border-dashed border-line bg-paper-2/50 p-5">
             <input
@@ -128,16 +173,16 @@ export default function EstimatorWizard() {
             </div>
             <div>
               <div className="text-sm font-bold text-ink">
-                {photoCount > 0 ? `${photoCount} foto(s) seleccionada(s)` : "Sube 1–3 fotos (opcional)"}
+                {photoCount > 0 ? `${photoCount} photo(s) selected` : "Upload 1–3 photos (optional)"}
               </div>
-              <div className="text-xs text-ink-faint">Ayuda a afinar el precio desde el primer momento.</div>
+              <div className="text-xs text-ink-faint">Helps refine your price from the start.</div>
             </div>
           </label>
 
           <div className="flex justify-between">
-            <button onClick={() => setStep(0)} className="btn-ghost">← Atrás</button>
+            <button onClick={() => setStep(0)} className="btn-ghost">← Back</button>
             <button disabled={!tamano} onClick={goToResult} className="btn-primary disabled:cursor-not-allowed disabled:opacity-30">
-              Ver mi estimado
+              See my estimate
             </button>
           </div>
         </div>
@@ -146,11 +191,23 @@ export default function EstimatorWizard() {
       {step === 2 && (
         <div>
           {loading || !estimate ? (
-            <div className="py-14 text-center text-sm font-semibold text-ink-faint">Calculando tu estimado…</div>
+            <div className="py-14 text-center text-sm font-semibold text-ink-faint">Calculating your estimate…</div>
+          ) : estimate.requiresOnSiteVisit ? (
+            <>
+              <h3 className="mb-1 font-display text-2xl font-bold uppercase text-ink">On-site visit needed</h3>
+              <p className="mb-6 text-sm text-ink-soft">{estimate.note}</p>
+              <div className="mb-4 text-sm font-bold text-ink">Leave your info and Michael will reach out to schedule:</div>
+              <LeadForm
+                canalOrigen="estimator"
+                compact
+                ctaLabel="Request a visit"
+                prefill={{ tipoTrabajo, mensaje: `Estimator — on-site visit needed (size: ${tamano}, condition: ${condicion})` }}
+              />
+            </>
           ) : (
             <>
-              <h3 className="mb-1 font-display text-2xl font-bold uppercase text-ink">Tu rango estimado</h3>
-              <p className="mb-5 text-sm text-ink-soft">{estimate.note}</p>
+              <h3 className="mb-1 font-display text-2xl font-bold uppercase text-ink">Your estimated range</h3>
+              <p className="mb-5 text-sm text-ink-soft">{estimate.disclaimer || estimate.note}</p>
 
               <div className="mb-4 border border-line">
                 {estimate.breakdown.map((b, i) => (
@@ -163,7 +220,7 @@ export default function EstimatorWizard() {
                   </div>
                 ))}
                 <div className="flex items-center justify-between bg-paper-2 px-4 py-4">
-                  <span className="text-sm font-bold text-ink">Rango final</span>
+                  <span className="text-sm font-bold text-ink">Estimated range</span>
                   <span className="font-display text-2xl font-bold text-gold-dark">
                     ${estimate.min.toLocaleString()}–${estimate.max.toLocaleString()}
                   </span>
@@ -171,15 +228,16 @@ export default function EstimatorWizard() {
               </div>
 
               <div className="mb-4 text-sm font-bold text-ink">
-                Deja tus datos y Michael te confirma el precio exacto:
+                Leave your info and Michael will confirm the exact price:
               </div>
               <LeadForm
-                canalOrigen="estimador"
+                canalOrigen="estimator"
                 compact
-                ctaLabel="Confirmar y reservar visita gratis"
+                ctaLabel="Confirm & book a free visit"
+                showUrgencyCheckbox
                 prefill={{
                   tipoTrabajo,
-                  mensaje: `Estimador IA — tamaño: ${tamano}, condición: ${condicion}`,
+                  mensaje: `Estimator — size: ${tamano}, condition: ${condicion}`,
                   estimadoMin: estimate.min,
                   estimadoMax: estimate.max,
                 }}

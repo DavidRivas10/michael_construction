@@ -4,7 +4,12 @@ import TestimonialCarousel from "@/components/TestimonialCarousel";
 import { IconStar } from "@/components/Icons";
 import { getConfig, listReviews } from "@/lib/db";
 
-export default function ResenasPage() {
+export const metadata = {
+  title: "Reviews",
+  description: "What Virginia homeowners say about working with Michael Construction.",
+};
+
+export default function ReviewsPage() {
   const config = getConfig();
   const reviews = listReviews();
 
@@ -12,10 +17,10 @@ export default function ResenasPage() {
     <>
       <SiteHeader config={config} />
       <section className="mx-auto max-w-4xl px-6 py-20 text-center">
-        <div className="eyebrow mb-3">Reseñas</div>
-        <h1 className="mb-4 font-display text-5xl font-black uppercase text-ink">Lo que dicen nuestros clientes</h1>
+        <div className="eyebrow mb-3">Reviews</div>
+        <h1 className="mb-4 font-display text-5xl font-black uppercase text-ink">What our clients say</h1>
         <p className="mx-auto max-w-xl text-lg text-ink-soft">
-          Estas reseñas se conectan directamente a Google — Michael no tiene que copiarlas a mano.
+          These reviews sync directly from Google — Michael never has to copy them by hand.
         </p>
       </section>
 

@@ -5,7 +5,7 @@ import { useRef, useState, useCallback } from "react";
 // Comparador antes/después arrastrable de verdad (puntero + touch).
 // Usa bloques de textura como placeholder hasta que haya fotos reales —
 // solo hay que reemplazar los dos <div> marcados por <img>.
-export default function BeforeAfterSlider({ title, location, beforeLabel = "ANTES", afterLabel = "DESPUÉS", height = "h-64" }) {
+export default function BeforeAfterSlider({ title, location, beforeLabel = "BEFORE", afterLabel = "AFTER", height = "h-64" }) {
   const [pos, setPos] = useState(50);
   const [dragging, setDragging] = useState(false);
   const ref = useRef(null);
@@ -28,6 +28,11 @@ export default function BeforeAfterSlider({ title, location, beforeLabel = "ANTE
   }
   function onPointerUp() {
     setDragging(false);
+  }
+
+  function onKeyDown(e) {
+    if (e.key === "ArrowLeft") { setPos((p) => Math.max(4, p - 5)); e.preventDefault(); }
+    if (e.key === "ArrowRight") { setPos((p) => Math.min(96, p + 5)); e.preventDefault(); }
   }
 
   return (
@@ -65,7 +70,16 @@ export default function BeforeAfterSlider({ title, location, beforeLabel = "ANTE
           className="absolute inset-y-0 z-10 w-[3px] bg-white shadow-[0_0_0_1px_rgba(0,0,0,0.15)]"
           style={{ left: `${pos}%`, transform: "translateX(-1.5px)" }}
         >
-          <div className="absolute top-1/2 left-1/2 flex h-9 w-9 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-white shadow-md">
+          <div
+            role="slider"
+            tabIndex={0}
+            aria-label={`Before/after comparison${title ? ` — ${title}` : ""}`}
+            aria-valuemin={0}
+            aria-valuemax={100}
+            aria-valuenow={Math.round(pos)}
+            onKeyDown={onKeyDown}
+            className="absolute top-1/2 left-1/2 flex h-9 w-9 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-white shadow-md outline-none focus-visible:ring-2 focus-visible:ring-gold"
+          >
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#14171C" strokeWidth="2" strokeLinecap="round">
               <path d="m9 6-6 6 6 6M15 6l6 6-6 6" />
             </svg>

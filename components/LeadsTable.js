@@ -59,7 +59,7 @@ export default function LeadsTable({ leads }) {
                 {l.urgente && <span className="rounded-full bg-red-100 px-1.5 py-0.5 text-[10px] font-bold text-red-700">URGENTE</span>}
               </div>
               <div className="truncate text-xs text-ink-faint">
-                {l.telefono} · {l.canalOrigen} · {new Date(l.createdAt).toLocaleString("es-HN")}
+                {l.telefono} · {l.canalOrigen} · {new Date(l.createdAt).toLocaleString("en-US")}
               </div>
             </div>
             <EstadoPill estado={l.estado} />

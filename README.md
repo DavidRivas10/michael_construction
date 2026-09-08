@@ -1,54 +1,77 @@
-# Michael Construction — sitio + panel admin
+# Michael Construction — website + admin panel
 
-Sitio completo en Next.js (App Router) para Michael Construction: páginas
-públicas, estimador con IA (mock por ahora), captura de leads con aviso
-automático, y panel de administración.
+Full Next.js (App Router) site for Michael Construction: public pages in
+English, a configurable AI-assisted estimator, lead capture with
+value/urgency-based notifications, and an admin panel the owner can run
+without a developer.
 
-Todo funciona **en modo demo** con datos de ejemplo desde el primer
-`npm install` — no necesitas ninguna cuenta externa para probarlo.
+Everything works **in demo mode** with sample data from the first
+`npm install` — no external accounts needed to try it out.
 
-## Arrancar en local
+## Run locally
 
 ```bash
 npm install
 npm run dev
 ```
 
-Abre `http://localhost:3000` para el sitio público y
-`http://localhost:3000/admin` para el panel (contraseña demo: `demo1234`).
+Open `http://localhost:3000` for the public site and
+`http://localhost:3000/admin` for the panel. In development, the admin
+password defaults to `demo1234` if `ADMIN_PASSWORD` isn't set — **in
+production, `ADMIN_PASSWORD` and `SESSION_SECRET` are required and the app
+will throw on boot if they're missing** (see `lib/auth.js`).
 
-## Qué es real y qué es demo ahora mismo
+## What's real vs. demo right now
 
-| Pieza | Estado |
+| Piece | Status |
 |---|---|
-| Páginas públicas, estimador, formularios | Reales y funcionando |
-| Guardado de leads | Real (archivo `data/leads.json`) |
-| Aviso por correo al enviar un lead | Demo — se imprime en la consola del servidor hasta poner `RESEND_API_KEY` |
-| Aviso por WhatsApp/SMS/llamada | Demo — se imprime en la consola hasta configurar Twilio |
-| Rango de precio del estimador | Calculado con una tabla simple — hasta poner `ANTHROPIC_API_KEY` no lee las fotos de verdad |
-| Fotos de portafolio | Bloques de color de ejemplo — falta conectar Supabase Storage/Cloudinary para fotos reales |
-| Base de datos | Archivos JSON en `/data` — pensada para migrarse a Postgres sin tocar el resto del código (ver `lib/db.js`) |
+| Public pages, estimator, forms | Real and working |
+| Pricing engine (`lib/estimator.js` + `data/pricing.json`) | Real rules engine, fully admin-configurable at `/admin/pricing` — no AI ever sets the price |
+| Lead capture & validation | Real — server-side validation, rate limiting, honeypot (`data/leads.json`) |
+| Email notification on new lead | Demo — logged to the server console until `RESEND_API_KEY` is set |
+| SMS/WhatsApp/call notification | Demo — logged to console until Twilio is configured. Rules: email always; SMS only for high-value or confirmed-emergency leads; call only for confirmed emergencies (see `lib/notify.js`) |
+| Photo-assisted estimating | Not active — with `ANTHROPIC_API_KEY`, Claude Vision would extract *observations* from photos (surface type, damage) to pre-fill the form; it never sets a price |
+| Portfolio photos | Example color blocks — needs Supabase Storage/Cloudinary for real photos |
+| Database | JSON files in `/data` — designed to migrate to Postgres without touching the rest of the code (see `lib/db.js`) |
 
-## Activar los servicios reales
+## Turning on real services
 
-1. Copia `.env.example` a `.env.local` y llena lo que ya tengas.
-2. **Correo** (Resend): crea cuenta gratis, genera una API key, pégala en `RESEND_API_KEY`.
-3. **WhatsApp/SMS**: crea cuenta en Twilio, activa WhatsApp Business, pega `TWILIO_ACCOUNT_SID`, `TWILIO_AUTH_TOKEN`, `TWILIO_WHATSAPP_FROM`.
-4. **Estimador con IA real** (lee las fotos): pega `ANTHROPIC_API_KEY` — la llamada real se agrega en `lib/estimator.js` donde está el comentario `estimateWithClaude`.
-5. **Base de datos real**: cuando haya un proyecto de Supabase o Neon, se reemplaza únicamente `lib/db.js` — ninguna página ni ruta cambia.
+1. Copy `.env.example` to `.env.local` and fill in what you have.
+2. **Email** (Resend): create a free account, generate an API key, paste it into `RESEND_API_KEY`.
+3. **WhatsApp/SMS/Calls**: create a Twilio account, enable WhatsApp Business, paste `TWILIO_ACCOUNT_SID`, `TWILIO_AUTH_TOKEN`, `TWILIO_WHATSAPP_FROM`.
+4. **Photo-assisted estimating**: paste `ANTHROPIC_API_KEY` — the real call goes in `lib/estimator.js` where the `analyzePhotosWithClaude` comment is. It only ever returns observations, never a price.
+5. **Real database**: once there's a Supabase or Neon project, only `lib/db.js` gets replaced — no page or route changes.
+6. **Admin panel in production**: set `ADMIN_PASSWORD` and `SESSION_SECRET` (long, random) — required, no fallback.
 
-## Desplegar
+## Deploying
 
-El proyecto está listo para Vercel: conecta el repositorio, agrega las
-variables de entorno de `.env.example` en el dashboard de Vercel, y listo.
+Ready for Vercel: connect the repo, add the environment variables from
+`.env.example` in the Vercel dashboard, and deploy. Old Spanish routes
+(`/servicios`, `/portafolio`, etc.) 301-redirect to their English
+equivalents (see `next.config.js`) in case anything was bookmarked during
+development.
 
-## Estructura
+## Structure
 
 ```
-app/            páginas públicas + admin (App Router)
-app/api/        rutas API (leads, estimador, admin, portafolio, config)
-components/     UI compartida
-lib/            db.js, notify.js, estimator.js, auth.js — la capa que se
-                reemplaza por servicios reales sin tocar las páginas
-data/           "base de datos" de demo en JSON
+app/            public pages + admin (App Router), all public copy in English
+app/api/        API routes (leads, estimate, pricing, admin, portfolio, config)
+components/     shared UI — Reveal.js is the lightweight scroll-motion helper
+lib/            db.js, notify.js, estimator.js, auth.js, rateLimit.js,
+                validate.js — the layer that gets swapped for real services
+                without touching pages
+data/           demo "database" in JSON, including pricing.json (the
+                estimator's rules — fully admin-editable)
 ```
+
+## Notes for whoever picks this up next
+
+- Admin panel content stays in Spanish (Michael's working language); all
+  **public-facing** copy is English per the US-market requirement.
+- Rate limiting (`lib/rateLimit.js`) is in-memory, per-process — fine for a
+  single Vercel instance under moderate traffic. If this scales to
+  multi-region/high-traffic, move it to Upstash Redis.
+- `getClientIp` falls back to `"unknown"` when no `x-forwarded-for` header
+  is present (e.g. local curl without a proxy) — on Vercel this header is
+  always set, so it's not an issue in production, just worth knowing when
+  testing locally.

@@ -3,19 +3,24 @@ import SiteFooter from "@/components/SiteFooter";
 import EstimatorWizard from "@/components/EstimatorWizard";
 import { getConfig } from "@/lib/db";
 
-export default function EstimadoPage() {
+export const metadata = {
+  title: "Free AI Estimate",
+  description: "Get a transparent, itemized price range for your painting or repair project in minutes.",
+};
+
+export default function EstimatePage() {
   const config = getConfig();
 
   return (
     <>
       <SiteHeader config={config} />
       <section className="mx-auto max-w-3xl px-6 pb-6 pt-16 text-center">
-        <div className="eyebrow mb-3">Estimado gratis · Sin compromiso</div>
+        <div className="eyebrow mb-3">Free Estimate · No Obligation</div>
         <h1 className="mb-3 font-display text-4xl font-black uppercase text-ink md:text-5xl">
-          Averigua tu precio antes de llamar a nadie
+          Find your price before you call anyone
         </h1>
         <p className="mx-auto max-w-lg text-ink-soft">
-          Responde unas preguntas rápidas y ve exactamente cómo se calcula tu rango de precio.
+          Answer a few quick questions and see exactly how your price range is calculated.
         </p>
       </section>
 
