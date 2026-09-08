@@ -3,9 +3,9 @@ import TestimonialsAdmin from "@/components/TestimonialsAdmin";
 import { requireSession } from "@/lib/auth";
 import { listReviews } from "@/lib/db";
 
-export default function AdminTestimoniosPage() {
+export default async function AdminTestimoniosPage() {
   requireSession();
-  const reviews = listReviews();
+  const reviews = await listReviews();
 
   return (
     <AdminShell active="Testimonios" description="Estos son los que se muestran en el inicio y en /resenas.">

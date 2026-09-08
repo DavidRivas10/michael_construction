@@ -9,9 +9,8 @@ export const metadata = {
   description: "What Virginia homeowners say about working with Michael Construction.",
 };
 
-export default function ReviewsPage() {
-  const config = getConfig();
-  const reviews = listReviews();
+export default async function ReviewsPage() {
+  const [config, reviews] = await Promise.all([getConfig(), listReviews()]);
 
   return (
     <>

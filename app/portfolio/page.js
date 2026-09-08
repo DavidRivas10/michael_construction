@@ -8,9 +8,8 @@ export const metadata = {
   description: "Real before-and-after painting and repair projects in Virginia.",
 };
 
-export default function PortfolioPage() {
-  const config = getConfig();
-  const items = listPortfolio();
+export default async function PortfolioPage() {
+  const [config, items] = await Promise.all([getConfig(), listPortfolio()]);
 
   return (
     <>

@@ -9,8 +9,8 @@ export const metadata = {
   description: "Get in touch with Michael Construction for a free painting or home repair estimate.",
 };
 
-export default function ContactPage() {
-  const config = getConfig();
+export default async function ContactPage() {
+  const config = await getConfig();
 
   return (
     <>

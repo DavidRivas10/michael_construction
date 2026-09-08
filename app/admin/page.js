@@ -4,9 +4,9 @@ import EstadoPill from "@/components/EstadoPill";
 import { requireSession } from "@/lib/auth";
 import { listLeads } from "@/lib/db";
 
-export default function AdminDashboard() {
+export default async function AdminDashboard() {
   requireSession();
-  const leads = listLeads();
+  const leads = await listLeads();
 
   const nuevos = leads.filter((l) => l.estado === "nuevo").length;
   const pendientes = leads.filter((l) => ["nuevo", "contactado"].includes(l.estado)).length;

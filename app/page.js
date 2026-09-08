@@ -13,12 +13,15 @@ import { getConfig, listPortfolio, listReviews, listServices, listFaq } from "@/
 
 const SERVICE_ICONS = { interior: IconBrush, exterior: IconHouse, reparacion: IconWrench };
 
-export default function HomePage() {
-  const config = getConfig();
-  const portfolio = listPortfolio().slice(0, 3);
-  const reviews = listReviews();
-  const services = listServices();
-  const faq = listFaq();
+export default async function HomePage() {
+  const [config, portfolioAll, reviews, services, faq] = await Promise.all([
+    getConfig(),
+    listPortfolio(),
+    listReviews(),
+    listServices(),
+    listFaq(),
+  ]);
+  const portfolio = portfolioAll.slice(0, 3);
   const [featured, ...rest] = services;
 
   return (

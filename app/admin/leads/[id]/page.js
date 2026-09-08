@@ -4,9 +4,9 @@ import LeadDetailPanel from "@/components/LeadDetailPanel";
 import { requireSession } from "@/lib/auth";
 import { getLead } from "@/lib/db";
 
-export default function LeadDetailPage({ params }) {
+export default async function LeadDetailPage({ params }) {
   requireSession();
-  const lead = getLead(params.id);
+  const lead = await getLead(params.id);
 
   return (
     <AdminShell active="Leads" description={lead ? `Solicitud de ${lead.nombre}` : "Lead no encontrado"}>

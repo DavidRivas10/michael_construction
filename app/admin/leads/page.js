@@ -3,9 +3,9 @@ import LeadsTable from "@/components/LeadsTable";
 import { requireSession } from "@/lib/auth";
 import { listLeads } from "@/lib/db";
 
-export default function AdminLeadsPage() {
+export default async function AdminLeadsPage() {
   requireSession();
-  const leads = listLeads();
+  const leads = await listLeads();
 
   return (
     <AdminShell active="Leads" description="Cada solicitud del sitio público, en un solo lugar.">

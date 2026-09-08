@@ -8,8 +8,8 @@ export const metadata = {
   description: "Get a transparent, itemized price range for your painting or repair project in minutes.",
 };
 
-export default function EstimatePage() {
-  const config = getConfig();
+export default async function EstimatePage() {
+  const config = await getConfig();
 
   return (
     <>

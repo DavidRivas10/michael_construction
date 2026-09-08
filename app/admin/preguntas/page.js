@@ -3,9 +3,9 @@ import FaqAdmin from "@/components/FaqAdmin";
 import { requireSession } from "@/lib/auth";
 import { listFaq } from "@/lib/db";
 
-export default function AdminPreguntasPage() {
+export default async function AdminPreguntasPage() {
   requireSession();
-  const items = listFaq();
+  const items = await listFaq();
 
   return (
     <AdminShell active="Preguntas frecuentes" description="Se muestran en el acordeón del inicio.">

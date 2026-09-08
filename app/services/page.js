@@ -11,9 +11,8 @@ export const metadata = {
   description: "Interior painting, exterior painting, and home repairs in Virginia — one crew, start to finish.",
 };
 
-export default function ServicesPage() {
-  const config = getConfig();
-  const services = listServices();
+export default async function ServicesPage() {
+  const [config, services] = await Promise.all([getConfig(), listServices()]);
 
   return (
     <>

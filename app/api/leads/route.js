@@ -27,9 +27,9 @@ export async function POST(request) {
   const hasUrgentWord = URGENT_WORDS.some((w) => texto.includes(w));
   const urgente = hasUrgentWord && !!body.confirmaUrgencia;
 
-  const lead = createLead({ ...body, ...clean, urgente, hasUrgentWord });
+  const lead = await createLead({ ...body, ...clean, urgente, hasUrgentWord });
   const notifyResult = await notifyNewLead(lead);
-  const updatedLead = updateLead(lead.id, { notified: notifyResult }) || lead;
+  const updatedLead = (await updateLead(lead.id, { notified: notifyResult })) || lead;
 
   return NextResponse.json({ ok: true, lead: updatedLead, notified: notifyResult }, { status: 201 });
 }
@@ -38,5 +38,5 @@ export async function GET() {
   if (!getSession()) {
     return NextResponse.json({ error: "No autorizado" }, { status: 401 });
   }
-  return NextResponse.json({ leads: listLeads() });
+  return NextResponse.json({ leads: await listLeads() });
 }
