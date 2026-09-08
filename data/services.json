@@ -1,0 +1,20 @@
+[
+  {
+    "id": "interior",
+    "title": "Pintura interior",
+    "shortDesc": "Paredes, techos, molduras y gabinetes, con prep cuidadosa y acabados parejos.",
+    "items": ["Paredes y techos", "Molduras y puertas", "Gabinetes de cocina", "Reparación de drywall antes de pintar"]
+  },
+  {
+    "id": "exterior",
+    "title": "Pintura exterior",
+    "shortDesc": "Productos resistentes al clima para que la fachada aguante varios inviernos.",
+    "items": ["Fachadas y siding", "Decks y cercas", "Molduras exteriores", "Lavado a presión previo"]
+  },
+  {
+    "id": "reparacion",
+    "title": "Reparaciones del hogar",
+    "shortDesc": "Los arreglos que la mayoría de contratistas no toma, resueltos por el mismo equipo.",
+    "items": ["Drywall y goteras", "Carpintería general", "Reparación de decks", "Molduras y puertas dañadas"]
+  }
+]

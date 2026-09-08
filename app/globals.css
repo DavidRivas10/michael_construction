@@ -1,0 +1,63 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url("https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800;900&family=Public+Sans:wght@400;500;600;700;800&display=swap");
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  * {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+body {
+  @apply bg-paper text-ink font-sans;
+}
+
+h1, h2, h3, .font-display {
+  font-family: "Big Shoulders Display", system-ui, sans-serif;
+  letter-spacing: -0.01em;
+}
+
+.btn-primary {
+  @apply inline-flex items-center justify-center gap-2 rounded-[3px] bg-gold px-7 py-3.5 text-[14.5px] font-bold uppercase tracking-wide text-charcoal transition hover:bg-gold-dark hover:text-white;
+}
+
+.btn-outline {
+  @apply inline-flex items-center justify-center gap-2 rounded-[3px] border-[1.5px] border-ink px-7 py-3.5 text-[14.5px] font-bold uppercase tracking-wide text-ink transition hover:bg-ink hover:text-white;
+}
+
+.btn-ghost {
+  @apply inline-flex items-center justify-center gap-2 rounded-[3px] px-4 py-2.5 text-sm font-bold text-ink-soft transition hover:text-ink;
+}
+
+.eyebrow {
+  @apply text-[12.5px] font-extrabold uppercase tracking-[0.12em] text-gold-dark;
+}
+
+.placeholder-photo {
+  background-image: repeating-linear-gradient(
+    45deg,
+    #dfe2db,
+    #dfe2db 2px,
+    #e9ebe5 2px,
+    #e9ebe5 4px
+  );
+  background-size: 6px 6px;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

@@ -1,0 +1,5 @@
+[
+  { "id": "r1", "author": "Cliente (EJEMPLO)", "rating": 5, "text": "Reseña de muestra — reemplazar con una reseña real de Google antes del lanzamiento.", "neighborhood": "[Barrio]", "isExample": true },
+  { "id": "r2", "author": "Cliente (EJEMPLO)", "rating": 5, "text": "Reseña de muestra — reemplazar con una reseña real de Google antes del lanzamiento.", "neighborhood": "[Barrio]", "isExample": true },
+  { "id": "r3", "author": "Cliente (EJEMPLO)", "rating": 5, "text": "Reseña de muestra — reemplazar con una reseña real de Google antes del lanzamiento.", "neighborhood": "[Barrio]", "isExample": true }
+]
