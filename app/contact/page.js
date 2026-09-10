@@ -1,8 +1,9 @@
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 import LeadForm from "@/components/LeadForm";
-import { IconPhone, IconMapPin } from "@/components/Icons";
+import { IconPhone, IconMapPin, IconWhatsapp } from "@/components/Icons";
 import { getConfig } from "@/lib/db";
+import { buildWhatsAppLink } from "@/lib/whatsapp";
 
 export const metadata = {
   title: "Contact",
@@ -11,6 +12,7 @@ export const metadata = {
 
 export default async function ContactPage() {
   const config = await getConfig();
+  const whatsappLink = buildWhatsAppLink(config.whatsapp);
 
   return (
     <>
@@ -26,6 +28,11 @@ export default async function ContactPage() {
             <a href={`tel:${config.phone}`} className="flex items-center gap-3">
               <IconPhone className="h-5 w-5 text-gold-dark" /> {config.phone}
             </a>
+            {whatsappLink && (
+              <a href={whatsappLink} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3">
+                <IconWhatsapp className="h-5 w-5 text-gold-dark" /> Chat on WhatsApp
+              </a>
+            )}
             <div className="flex items-center gap-3">
               <IconMapPin className="h-5 w-5 text-gold-dark" /> {config.serviceArea}
             </div>

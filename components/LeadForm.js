@@ -61,11 +61,16 @@ export default function LeadForm({
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-3.5">
-      {/* Honeypot — hidden from real visitors via CSS, catches simple bots */}
+      {/* Honeypot — hidden from real visitors via CSS, catches simple bots.
+          autoComplete="new-password" is a deliberate trick: it's the one
+          value that reliably stops Chrome from autofilling this field with
+          saved address/name data (plain "off" is ignored by Chrome for this
+          purpose), which was previously flagging real visitors as spam. */}
       <input
         type="text"
+        name="hp_company"
         tabIndex={-1}
-        autoComplete="off"
+        autoComplete="new-password"
         value={form.website}
         onChange={(e) => update("website", e.target.value)}
         className="absolute h-0 w-0 opacity-0"

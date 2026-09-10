@@ -8,8 +8,9 @@ import TestimonialCarousel from "@/components/TestimonialCarousel";
 import FaqAccordion from "@/components/FaqAccordion";
 import LeadForm from "@/components/LeadForm";
 import Reveal from "@/components/Reveal";
-import { IconCheck, IconClock, IconHeart, IconBrush, IconHouse, IconWrench, IconStar } from "@/components/Icons";
+import { IconCheck, IconClock, IconHeart, IconBrush, IconHouse, IconWrench, IconStar, IconWhatsapp } from "@/components/Icons";
 import { getConfig, listPortfolio, listReviews, listServices, listFaq } from "@/lib/db";
+import { buildWhatsAppLink } from "@/lib/whatsapp";
 
 const SERVICE_ICONS = { interior: IconBrush, exterior: IconHouse, reparacion: IconWrench };
 
@@ -23,6 +24,7 @@ export default async function HomePage() {
   ]);
   const portfolio = portfolioAll.slice(0, 3);
   const [featured, ...rest] = services;
+  const whatsappLink = buildWhatsAppLink(config.whatsapp);
 
   return (
     <>
@@ -41,6 +43,16 @@ export default async function HomePage() {
           <div className="mb-7 flex flex-wrap gap-4">
             <Link href="/estimate" className="btn-primary">Get a Free Estimate</Link>
             <a href={`tel:${config.phone}`} className="btn-outline">Call Now</a>
+            {whatsappLink && (
+              <a
+                href={whatsappLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-outline flex items-center gap-2"
+              >
+                <IconWhatsapp className="h-4 w-4" /> WhatsApp
+              </a>
+            )}
           </div>
         </div>
 

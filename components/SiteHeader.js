@@ -2,7 +2,8 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { IconPhone } from "./Icons";
+import { IconPhone, IconWhatsapp } from "./Icons";
+import { buildWhatsAppLink } from "@/lib/whatsapp";
 
 export default function SiteHeader({ config }) {
   const [scrolled, setScrolled] = useState(false);
@@ -16,6 +17,8 @@ export default function SiteHeader({ config }) {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  const whatsappLink = buildWhatsAppLink(config.whatsapp);
 
   const links = [
     { href: "/services", label: "Services" },
@@ -38,10 +41,23 @@ export default function SiteHeader({ config }) {
             <span className="hidden sm:inline">·</span>
             <span className="hidden sm:inline">Se habla español</span>
           </div>
-          <a href={`tel:${config.phone}`} className="flex items-center gap-1.5 opacity-90">
-            <IconPhone className="h-3 w-3" />
-            {config.phone}
-          </a>
+          <div className="flex items-center gap-4">
+            {whatsappLink && (
+              <a
+                href={whatsappLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-1.5 opacity-90"
+              >
+                <IconWhatsapp className="h-3 w-3" />
+                WhatsApp
+              </a>
+            )}
+            <a href={`tel:${config.phone}`} className="flex items-center gap-1.5 opacity-90">
+              <IconPhone className="h-3 w-3" />
+              {config.phone}
+            </a>
+          </div>
         </div>
       </div>
 
@@ -102,6 +118,17 @@ export default function SiteHeader({ config }) {
             <a href={`tel:${config.phone}`} className="mt-2 rounded-sm px-2 py-2.5 text-[15px] font-bold text-gold-dark">
               {config.phone}
             </a>
+            {whatsappLink && (
+              <a
+                href={whatsappLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-1.5 rounded-sm px-2 py-2.5 text-[15px] font-bold text-gold-dark"
+              >
+                <IconWhatsapp className="h-4 w-4" />
+                Chat on WhatsApp
+              </a>
+            )}
           </nav>
         )}
       </div>
