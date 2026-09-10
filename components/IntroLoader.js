@@ -29,7 +29,7 @@ export default function IntroLoader({ businessName }) {
     if (prefersReduced || alreadyShown) return;
 
     setVisible(true);
-    const fadeTimer = setTimeout(() => setFading(true), 900);
+    const fadeTimer = setTimeout(() => setFading(true), 1300);
     const removeTimer = setTimeout(() => {
       setVisible(false);
       try {
@@ -37,7 +37,7 @@ export default function IntroLoader({ businessName }) {
       } catch {
         /* no-op */
       }
-    }, 1250);
+    }, 1650);
 
     return () => {
       clearTimeout(fadeTimer);
@@ -54,15 +54,33 @@ export default function IntroLoader({ businessName }) {
         fading ? "pointer-events-none opacity-0" : "opacity-100"
       }`}
     >
+      <div className="pointer-events-none absolute h-72 w-72 rounded-full bg-gold/10 blur-3xl animate-[introGlow_1.6s_ease-out_forwards]" />
+
       <div className="flex flex-col items-center gap-4">
-        <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#B8862E" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M3 21h18" />
-          <path d="M6 21V9l6-5 6 5v12" />
-          <path d="M10 21v-6h4v6" />
+        <svg
+          width="40"
+          height="40"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="#B8862E"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          className="animate-[introIcon_0.6s_ease-out_forwards]"
+          style={{ opacity: 0, transform: "translateY(6px) scale(0.9)" }}
+        >
+          <path d="M3 21h18" pathLength="1" strokeDasharray="1" strokeDashoffset="1" className="animate-[introDraw_0.5s_0.15s_ease-out_forwards]" />
+          <path d="M6 21V9l6-5 6 5v12" pathLength="1" strokeDasharray="1" strokeDashoffset="1" className="animate-[introDraw_0.6s_0.2s_ease-out_forwards]" />
+          <path d="M10 21v-6h4v6" pathLength="1" strokeDasharray="1" strokeDashoffset="1" className="animate-[introDraw_0.4s_0.55s_ease-out_forwards]" />
         </svg>
-        <div className="font-display text-xl font-bold uppercase tracking-wide text-white">{businessName}</div>
+        <div
+          className="font-display text-xl font-bold uppercase tracking-wide text-white animate-[introIcon_0.5s_0.3s_ease-out_forwards]"
+          style={{ opacity: 0, transform: "translateY(6px)" }}
+        >
+          {businessName}
+        </div>
         <div className="h-[2px] w-16 overflow-hidden bg-white/15">
-          <div className="h-full w-full origin-left scale-x-0 animate-[introBar_0.8s_ease-out_forwards] bg-gold" />
+          <div className="h-full w-full origin-left scale-x-0 animate-[introBar_0.7s_0.55s_ease-out_forwards] bg-gold" />
         </div>
       </div>
 
@@ -70,8 +88,19 @@ export default function IntroLoader({ businessName }) {
         @keyframes introBar {
           to { transform: scaleX(1); }
         }
+        @keyframes introIcon {
+          to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        @keyframes introDraw {
+          to { stroke-dashoffset: 0; }
+        }
+        @keyframes introGlow {
+          0% { opacity: 0; transform: scale(0.8); }
+          60% { opacity: 1; }
+          100% { opacity: 0; transform: scale(1.15); }
+        }
         @media (prefers-reduced-motion: reduce) {
-          .animate-\\[introBar_0\\.8s_ease-out_forwards\\] { animation: none; transform: scaleX(1); }
+          [class*="animate-["] { animation: none !important; opacity: 1 !important; transform: none !important; stroke-dashoffset: 0 !important; }
         }
       `}</style>
     </div>

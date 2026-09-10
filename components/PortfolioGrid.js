@@ -44,7 +44,7 @@ export default function PortfolioGrid({ items }) {
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {filtered.map((p) => (
             <div key={p.id} className="animate-[fadeIn_.25s_ease]">
-              <BeforeAfterSlider title={p.title} location={p.location} />
+              <BeforeAfterSlider title={p.title} location={p.location} beforeUrl={p.beforeUrl} afterUrl={p.afterUrl} />
             </div>
           ))}
         </div>

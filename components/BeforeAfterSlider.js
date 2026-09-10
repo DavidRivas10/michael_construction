@@ -5,7 +5,15 @@ import { useRef, useState, useCallback } from "react";
 // Comparador antes/después arrastrable de verdad (puntero + touch).
 // Usa bloques de textura como placeholder hasta que haya fotos reales —
 // solo hay que reemplazar los dos <div> marcados por <img>.
-export default function BeforeAfterSlider({ title, location, beforeLabel = "BEFORE", afterLabel = "AFTER", height = "h-64" }) {
+export default function BeforeAfterSlider({
+  title,
+  location,
+  beforeUrl,
+  afterUrl,
+  beforeLabel = "BEFORE",
+  afterLabel = "AFTER",
+  height = "h-64",
+}) {
   const [pos, setPos] = useState(50);
   const [dragging, setDragging] = useState(false);
   const ref = useRef(null);
@@ -48,17 +56,28 @@ export default function BeforeAfterSlider({ title, location, beforeLabel = "BEFO
         onTouchMove={onPointerMove}
         onTouchEnd={onPointerUp}
       >
-        {/* AFTER (fondo completo) */}
-        <div className="placeholder-photo absolute inset-0 flex items-end justify-start bg-[#e9ddc4] p-3">
+        {/* AFTER (fondo completo) — foto real si existe, si no el placeholder de siempre */}
+        <div
+          className={`absolute inset-0 flex items-end justify-start p-3 ${
+            afterUrl ? "bg-cover bg-center" : "placeholder-photo bg-[#e9ddc4]"
+          }`}
+          style={afterUrl ? { backgroundImage: `url(${afterUrl})` } : undefined}
+        >
           <span className="rounded-sm bg-charcoal/80 px-2 py-1 text-[10px] font-bold tracking-wide text-white">
             {afterLabel}
           </span>
         </div>
 
-        {/* BEFORE (recortado según el arrastre) */}
+        {/* BEFORE — misma imagen a tamaño completo, recortada con clip-path
+            (no redimensionada) para que el "wipe" revele en vez de hacer zoom */}
         <div
-          className="placeholder-photo absolute inset-y-0 left-0 flex items-end justify-start overflow-hidden bg-[#cfd3cb] p-3 grayscale"
-          style={{ width: `${pos}%` }}
+          className={`absolute inset-0 flex items-end justify-start p-3 ${
+            beforeUrl ? "bg-cover bg-center" : "placeholder-photo bg-[#cfd3cb] grayscale"
+          }`}
+          style={{
+            clipPath: `inset(0 ${100 - pos}% 0 0)`,
+            ...(beforeUrl ? { backgroundImage: `url(${beforeUrl})` } : {}),
+          }}
         >
           <span className="rounded-sm bg-charcoal/80 px-2 py-1 text-[10px] font-bold tracking-wide text-white">
             {beforeLabel}

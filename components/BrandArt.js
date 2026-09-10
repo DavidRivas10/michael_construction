@@ -50,6 +50,89 @@ export function HeroArt({ className = "" }) {
   );
 }
 
+export function InteriorArt({ className = "" }) {
+  return (
+    <svg viewBox="0 0 480 420" className={className} role="img" aria-label="Illustration of interior wall painting">
+      <rect width="480" height="420" fill="#F6F7F5" />
+      <rect width="480" height="420" fill="url(#interior-dots)" opacity="0.5" />
+
+      {/* Wall panel, half already painted (the "reveal" motif) */}
+      <rect x="70" y="60" width="340" height="230" fill="none" stroke="#DBDFD9" strokeWidth="3" />
+      <rect x="73" y="63" width="164" height="224" fill="#F3E7CD" />
+
+      {/* Ladder */}
+      <g transform="translate(290 60)">
+        <path d="M0 230 L20 0 M60 230 L40 0" stroke="#1B1E1B" strokeWidth="6" strokeLinecap="round" />
+        <path d="M4 190 H56 M8 150 H52 M12 110 H48 M16 70 H44 M20 30 H40" stroke="#1B1E1B" strokeWidth="5" />
+      </g>
+
+      {/* Roller on extension pole, mid-stroke over the painted/unpainted line */}
+      <g transform="translate(150 150) rotate(-18)">
+        <rect x="-6" y="0" width="12" height="150" rx="5" fill="#8F6A22" />
+        <rect x="-34" y="140" width="68" height="34" rx="8" fill="#B8862E" />
+      </g>
+
+      {/* Paint can + drips at the base */}
+      <g transform="translate(90 250)">
+        <rect x="0" y="10" width="56" height="42" rx="3" fill="#1B1E1B" />
+        <rect x="0" y="10" width="56" height="10" fill="#B8862E" />
+        <path d="M6 0 h44 l-6 10 h-32 z" fill="#1B1E1B" />
+        <circle cx="70" cy="56" r="4" fill="#B8862E" />
+        <circle cx="84" cy="48" r="3" fill="#B8862E" />
+      </g>
+
+      <defs>
+        <pattern id="interior-dots" width="22" height="22" patternUnits="userSpaceOnUse">
+          <circle cx="2" cy="2" r="1.4" fill="#DBDFD9" />
+        </pattern>
+      </defs>
+    </svg>
+  );
+}
+
+export function RepairArt({ className = "" }) {
+  return (
+    <svg viewBox="0 0 480 420" className={className} role="img" aria-label="Illustration of home repair tools">
+      <rect width="480" height="420" fill="#F6F7F5" />
+      <rect width="480" height="420" fill="url(#repair-dots)" opacity="0.5" />
+
+      {/* Toolbox */}
+      <g transform="translate(150 220)">
+        <rect x="0" y="30" width="180" height="90" rx="6" fill="#1B1E1B" />
+        <rect x="0" y="30" width="180" height="14" fill="#B8862E" />
+        <path d="M60 30 V0 h60 v30" fill="none" stroke="#1B1E1B" strokeWidth="8" strokeLinejoin="round" />
+        <rect x="20" y="70" width="50" height="34" fill="#F6F7F5" opacity="0.15" />
+        <rect x="110" y="70" width="50" height="34" fill="#F6F7F5" opacity="0.15" />
+      </g>
+
+      {/* Wrench, large accent */}
+      <g transform="translate(120 80) rotate(28)">
+        <path
+          d="M0 26 a26 26 0 1 1 26 26 a26 26 0 0 1 -18-7 l-70 70 -14-14 70-70 a26 26 0 0 1 6-31Z"
+          fill="#B8862E"
+        />
+        <circle cx="26" cy="26" r="11" fill="#F6F7F5" />
+      </g>
+
+      {/* Screwdriver */}
+      <g transform="translate(300 70) rotate(15)">
+        <rect x="0" y="0" width="14" height="80" rx="3" fill="#8F6A22" />
+        <rect x="-3" y="80" width="20" height="60" rx="3" fill="#1B1E1B" />
+        <rect x="1" y="145" width="12" height="30" fill="#DBDFD9" />
+      </g>
+
+      <circle cx="380" cy="260" r="5" fill="#B8862E" />
+      <circle cx="360" cy="290" r="3.5" fill="#B8862E" />
+
+      <defs>
+        <pattern id="repair-dots" width="22" height="22" patternUnits="userSpaceOnUse">
+          <circle cx="2" cy="2" r="1.4" fill="#DBDFD9" />
+        </pattern>
+      </defs>
+    </svg>
+  );
+}
+
 export function MapArt({ className = "" }) {
   return (
     <svg viewBox="0 0 400 260" className={className} role="img" aria-label="Illustration of a service area map">

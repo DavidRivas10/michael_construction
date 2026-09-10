@@ -37,9 +37,9 @@ export default function SiteHeader({ config }) {
       >
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 text-[11.5px] font-semibold tracking-wide sm:text-[12.5px]">
           <div className="flex gap-5 opacity-80">
-            <span>Licensed &amp; insured</span>
+            <span>Free estimates</span>
             <span className="hidden sm:inline">·</span>
-            <span className="hidden sm:inline">Se habla español</span>
+            <span className="hidden sm:inline">Same-day response</span>
           </div>
           <div className="flex items-center gap-4">
             {whatsappLink && (

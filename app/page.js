@@ -11,7 +11,8 @@ import Reveal from "@/components/Reveal";
 import { IconCheck, IconClock, IconHeart, IconBrush, IconHouse, IconWrench, IconStar, IconWhatsapp } from "@/components/Icons";
 import { getConfig, listPortfolio, listReviews, listServices, listFaq } from "@/lib/db";
 import { buildWhatsAppLink } from "@/lib/whatsapp";
-import { HeroArt, MapArt } from "@/components/BrandArt";
+import { MapArt } from "@/components/BrandArt";
+import HeroCarousel from "@/components/HeroCarousel";
 
 const SERVICE_ICONS = { interior: IconBrush, exterior: IconHouse, reparacion: IconWrench };
 
@@ -58,9 +59,7 @@ export default async function HomePage() {
         </div>
 
         <div className="relative">
-          <div className="flex h-[420px] items-center justify-center overflow-hidden border border-line">
-            <HeroArt className="h-full w-full" />
-          </div>
+          <HeroCarousel className="h-[420px] border border-line" />
           <div className="absolute -bottom-6 -left-6 bg-charcoal px-6 py-4 text-white shadow-xl">
             <div className="font-display text-lg font-bold uppercase leading-snug">Free, no-pressure<br />estimates</div>
           </div>

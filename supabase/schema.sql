@@ -46,6 +46,8 @@ create table if not exists portfolio (
   title text,
   category text,
   location text,
+  before_url text,
+  after_url text,
   featured boolean default false,
   is_example boolean default false,
   created_at timestamptz default now()
