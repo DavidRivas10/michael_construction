@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import Link from "next/link";
 import LogoutButton from "./LogoutButton";
 
@@ -31,9 +34,64 @@ function NavIcon({ name }) {
   );
 }
 
-export default function AdminShell({ active, title, description, actions, children }) {
+function NavLinks({ active, onNavigate }) {
   return (
-    <div className="flex min-h-screen bg-paper">
+    <>
+      {NAV.map((n) => {
+        const isActive = n.label === active;
+        return (
+          <Link
+            key={n.href}
+            href={n.href}
+            onClick={onNavigate}
+            className={`mb-1 flex items-center gap-3 rounded-[3px] px-3 py-2.5 text-[13.5px] font-semibold transition ${
+              isActive ? "bg-white/10 text-white" : "text-white/55 hover:bg-white/5 hover:text-white/85"
+            }`}
+          >
+            <NavIcon name={n.icon} />
+            {n.label}
+          </Link>
+        );
+      })}
+    </>
+  );
+}
+
+export default function AdminShell({ active, title, description, actions, children }) {
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  return (
+    <div className="flex min-h-screen flex-col bg-paper sm:flex-row">
+      {/* Mobile top bar — only shown below the sm breakpoint, replaces the sidebar */}
+      <div className="flex items-center justify-between border-b border-white/10 bg-charcoal px-4 py-3.5 text-white sm:hidden">
+        <div className="flex items-center gap-2.5">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#B8862E" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M3 21h18" /><path d="M6 21V9l6-5 6 5v12" /><path d="M10 21v-6h4v6" />
+          </svg>
+          <div className="font-display text-sm font-bold uppercase leading-none">Michael Construction</div>
+        </div>
+        <button
+          onClick={() => setMenuOpen((v) => !v)}
+          aria-label="Toggle menu"
+          aria-expanded={menuOpen}
+          className="flex h-9 w-9 items-center justify-center rounded-sm border border-white/20"
+        >
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+            {menuOpen ? <path d="M18 6 6 18M6 6l12 12" /> : <path d="M3 6h18M3 12h18M3 18h18" />}
+          </svg>
+        </button>
+      </div>
+
+      {menuOpen && (
+        <nav className="flex flex-col border-b border-white/10 bg-charcoal px-3 py-3 sm:hidden">
+          <NavLinks active={active} onNavigate={() => setMenuOpen(false)} />
+          <div className="mt-2 border-t border-white/10 px-3 pt-3">
+            <LogoutButton />
+          </div>
+        </nav>
+      )}
+
+      {/* Desktop sidebar — unchanged, still hidden below sm */}
       <aside className="hidden w-60 shrink-0 flex-col border-r border-white/10 bg-charcoal text-white sm:flex">
         <div className="flex items-center gap-2.5 border-b border-white/10 px-6 py-5">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#B8862E" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -42,21 +100,7 @@ export default function AdminShell({ active, title, description, actions, childr
           <div className="font-display text-base font-bold uppercase leading-none">Michael Construction</div>
         </div>
         <nav className="flex-1 px-3 py-5">
-          {NAV.map((n) => {
-            const isActive = n.label === active;
-            return (
-              <Link
-                key={n.href}
-                href={n.href}
-                className={`mb-1 flex items-center gap-3 rounded-[3px] px-3 py-2.5 text-[13.5px] font-semibold transition ${
-                  isActive ? "bg-white/10 text-white" : "text-white/55 hover:bg-white/5 hover:text-white/85"
-                }`}
-              >
-                <NavIcon name={n.icon} />
-                {n.label}
-              </Link>
-            );
-          })}
+          <NavLinks active={active} />
         </nav>
         <div className="border-t border-white/10 px-6 py-4">
           <LogoutButton />

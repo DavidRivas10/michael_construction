@@ -32,7 +32,7 @@ export default function SiteFooter() {
         </div>
       </div>
       <div className="mx-auto mt-10 max-w-6xl border-t border-white/10 px-6 pt-6 text-xs text-white/45">
-        © {new Date().getFullYear()} {config.businessName}. Licensed &amp; insured in {config.licenseState}.
+        © {new Date().getFullYear()} {config.businessName}. All rights reserved.
       </div>
     </footer>
   );

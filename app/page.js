@@ -11,6 +11,7 @@ import Reveal from "@/components/Reveal";
 import { IconCheck, IconClock, IconHeart, IconBrush, IconHouse, IconWrench, IconStar, IconWhatsapp } from "@/components/Icons";
 import { getConfig, listPortfolio, listReviews, listServices, listFaq } from "@/lib/db";
 import { buildWhatsAppLink } from "@/lib/whatsapp";
+import { HeroArt, MapArt } from "@/components/BrandArt";
 
 const SERVICE_ICONS = { interior: IconBrush, exterior: IconHouse, reparacion: IconWrench };
 
@@ -57,15 +58,11 @@ export default async function HomePage() {
         </div>
 
         <div className="relative">
-          <div className="placeholder-photo flex h-[420px] items-center justify-center border border-line">
-            <div className="text-center">
-              <IconHouse className="mx-auto mb-3 h-14 w-14 text-ink/25" />
-              <div className="text-sm font-bold text-ink-faint">[Real project photo]</div>
-            </div>
+          <div className="flex h-[420px] items-center justify-center overflow-hidden border border-line">
+            <HeroArt className="h-full w-full" />
           </div>
           <div className="absolute -bottom-6 -left-6 bg-charcoal px-6 py-4 text-white shadow-xl">
-            <div className="font-display text-3xl font-bold">{config.yearsInBusiness}+</div>
-            <div className="text-xs font-semibold uppercase tracking-wide opacity-80">years serving {config.serviceArea.split(",")[0]}</div>
+            <div className="font-display text-lg font-bold uppercase leading-snug">Free, no-pressure<br />estimates</div>
           </div>
         </div>
       </section>
@@ -73,9 +70,9 @@ export default async function HomePage() {
       {/* Trust bar */}
       <section className="border-y border-line bg-paper-2 py-6">
         <div className="mx-auto grid max-w-6xl grid-cols-2 gap-6 px-6 text-sm font-bold text-ink sm:grid-cols-4">
-          <div className="flex items-center gap-2.5"><IconCheck className="h-5 w-5 text-gold-dark" />Licensed &amp; insured</div>
+          <div className="flex items-center gap-2.5"><IconCheck className="h-5 w-5 text-gold-dark" />Free estimates</div>
           <div className="flex items-center gap-2.5"><IconClock className="h-5 w-5 text-gold-dark" />Same-day response</div>
-          <div className="flex items-center gap-2.5"><IconHeart className="h-5 w-5 text-gold-dark" />Se habla español</div>
+          <div className="flex items-center gap-2.5"><IconHeart className="h-5 w-5 text-gold-dark" />Clear, upfront pricing</div>
           <div className="flex items-center gap-2.5"><IconCheck className="h-5 w-5 text-gold-dark" />Work guaranteed</div>
         </div>
       </section>
@@ -146,7 +143,7 @@ export default async function HomePage() {
         <PortfolioGrid items={portfolio} />
       </section>
 
-      <WhyChooseUs />
+      <WhyChooseUs config={config} />
 
       {/* AI estimator banner */}
       <section className="bg-charcoal py-20">
@@ -207,8 +204,8 @@ export default async function HomePage() {
         <div className="border border-line bg-paper-2 p-8">
           <div className="eyebrow mb-3">Service area</div>
           <h3 className="mb-5 font-display text-2xl font-bold uppercase text-ink">{config.serviceArea}</h3>
-          <div className="flex h-64 items-center justify-center border border-line bg-white text-sm font-bold text-ink-faint">
-            [Service area map]
+          <div className="h-64 overflow-hidden border border-line bg-white">
+            <MapArt className="h-full w-full" />
           </div>
         </div>
         <div className="border border-line bg-white p-8">

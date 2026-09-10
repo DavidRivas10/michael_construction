@@ -3,7 +3,7 @@ import Reveal from "./Reveal";
 const STEPS = [
   { n: "01", title: "Tell us about the project", text: "Use the AI estimator or the contact form — takes about two minutes." },
   { n: "02", title: "See your price range", text: "A transparent, line-by-line breakdown — no black box, no pressure." },
-  { n: "03", title: "Free on-site visit", text: "Michael confirms the exact price in person, at no cost to you." },
+  { n: "03", title: "On-site visit", text: "Michael comes out to confirm the exact price in person before anything starts." },
   { n: "04", title: "We get to work", text: "The same crew that quoted the job shows up to do it — no unknown subcontractors." },
 ];
 

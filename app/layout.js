@@ -21,7 +21,7 @@ export const metadata = {
     template: "%s | Michael Construction",
   },
   description:
-    "Licensed and insured interior and exterior painting, plus home repairs, in [Your City], VA. Get a free, transparent estimate in minutes.",
+    "Interior and exterior painting, plus home repairs. Clear, transparent pricing — get a free estimate in minutes.",
   openGraph: {
     type: "website",
     siteName: "Michael Construction",
