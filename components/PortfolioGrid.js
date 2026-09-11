@@ -13,9 +13,15 @@ const FILTERS = [
 export default function PortfolioGrid({ items }) {
   const [filter, setFilter] = useState("all");
 
+  // Un proyecto sin ninguna foto (antes/después) no se muestra nunca en el
+  // sitio público — solo sirve para confundir al visitante con una tarjeta
+  // vacía. Se sigue viendo en /admin/portafolio para poder completarlo o
+  // eliminarlo.
+  const withPhotos = useMemo(() => items.filter((i) => i.beforeUrl || i.afterUrl), [items]);
+
   const filtered = useMemo(
-    () => (filter === "all" ? items : items.filter((i) => i.category === filter)),
-    [items, filter]
+    () => (filter === "all" ? withPhotos : withPhotos.filter((i) => i.category === filter)),
+    [withPhotos, filter]
   );
 
   return (
@@ -43,8 +49,14 @@ export default function PortfolioGrid({ items }) {
       ) : (
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {filtered.map((p) => (
-            <div key={p.id} className="animate-[fadeIn_.25s_ease]">
+            <div
+              key={p.id}
+              className="animate-[fadeIn_.25s_ease] transition-shadow duration-300 hover:shadow-[0_18px_40px_-18px_rgba(20,23,28,0.35)]"
+            >
               <BeforeAfterSlider title={p.title} location={p.location} beforeUrl={p.beforeUrl} afterUrl={p.afterUrl} />
+              {p.description && (
+                <p className="mt-2 px-0.5 text-[13px] leading-relaxed text-ink-faint">{p.description}</p>
+              )}
             </div>
           ))}
         </div>

@@ -5,7 +5,7 @@ import { listReviews } from "@/lib/db";
 
 export default async function AdminTestimoniosPage() {
   requireSession();
-  const reviews = await listReviews();
+  const reviews = await listReviews({ onlyApproved: false });
 
   return (
     <AdminShell active="Testimonios" description="Estos son los que se muestran en el inicio y en /resenas.">

@@ -18,10 +18,20 @@ export async function POST(request) {
   const title = String(form.get("title") || "").trim();
   const category = String(form.get("category") || "interior");
   const location = String(form.get("location") || "").trim();
+  const description = String(form.get("description") || "").trim();
   const beforeFile = form.get("beforeFile");
   const afterFile = form.get("afterFile");
 
   if (!title) return NextResponse.json({ error: "El título es obligatorio." }, { status: 400 });
+
+  // Se exige al menos una foto — un proyecto sin ninguna foto se ve como una
+  // tarjeta vacía en el sitio público y solo confunde al visitante. Si
+  // todavía no tienes las fotos, espera a subir el proyecto hasta tenerlas.
+  const hasBefore = beforeFile && typeof beforeFile === "object" && beforeFile.size > 0;
+  const hasAfter = afterFile && typeof afterFile === "object" && afterFile.size > 0;
+  if (!hasBefore && !hasAfter) {
+    return NextResponse.json({ error: "Sube al menos una foto (antes o después) para agregar el proyecto." }, { status: 400 });
+  }
 
   for (const f of [beforeFile, afterFile]) {
     if (f && typeof f === "object" && f.size > 0) {
@@ -40,7 +50,7 @@ export async function POST(request) {
       afterFile && afterFile.size > 0 ? uploadPortfolioPhoto(afterFile, "after") : null,
     ]);
 
-    const item = await addPortfolioItem({ title, category, location, beforeUrl, afterUrl });
+    const item = await addPortfolioItem({ title, category, location, description, beforeUrl, afterUrl });
     return NextResponse.json({ item }, { status: 201 });
   } catch (err) {
     // Most likely cause: the "portfolio-photos" Storage bucket doesn't exist

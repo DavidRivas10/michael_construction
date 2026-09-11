@@ -62,7 +62,7 @@ export default function IntroLoader({ businessName }) {
           height="40"
           viewBox="0 0 24 24"
           fill="none"
-          stroke="#B8862E"
+          stroke="#FF5A1F"
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"

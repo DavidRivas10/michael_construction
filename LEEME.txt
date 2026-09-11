@@ -1,0 +1,67 @@
+REDISEÑO v4 — Michael Construction
+===================================
+
+Qué es esto
+-----------
+Son SOLO los archivos que cambiaron o se crearon en esta sesión (no el
+proyecto completo). Cada uno debe reemplazar al archivo con el mismo
+nombre y misma ruta dentro de tu proyecto en tu computadora.
+
+Cómo aplicarlo
+---------------
+1. Abre la carpeta de tu proyecto en tu computadora (donde tienes
+   package.json, la carpeta app/, components/, etc. — el mismo que
+   subiste a GitHub como DavidRivas10/michael_construction).
+2. Copia cada archivo de este paquete a la misma ruta dentro de tu
+   proyecto, sobrescribiendo el que ya existe:
+
+   tailwind.config.js                     -> tailwind.config.js
+   app/globals.css                        -> app/globals.css
+   app/page.js                            -> app/page.js
+   components/SiteHeader.js               -> components/SiteHeader.js
+   components/SiteFooter.js               -> components/SiteFooter.js
+   components/TestimonialCarousel.js      -> components/TestimonialCarousel.js
+   components/HeroCarousel.js             -> components/HeroCarousel.js
+   components/BrandArt.js                 -> components/BrandArt.js
+   components/IntroLoader.js              -> components/IntroLoader.js
+   components/ServicesTabs.js             -> components/ServicesTabs.js  (ARCHIVO NUEVO)
+   components/StatsBand.js                -> components/StatsBand.js    (ARCHIVO NUEVO)
+
+3. Corre en tu terminal, dentro del proyecto:
+
+     npm run build
+
+   Debe terminar sin errores (29 rutas). Si el reloj de tu sistema ya
+   está sincronizado, después corre:
+
+     npm run dev
+
+   y abre http://localhost:3000 para verlo con tus datos reales de
+   Supabase.
+
+4. Cuando lo confirmes, súbelo a GitHub como siempre:
+
+     git add tailwind.config.js app/globals.css app/page.js components/
+     git commit -m "Rediseño v4: header oscuro, hero de foto completa, stats con contador, servicios en pestañas, testimonios con crossfade"
+     git push
+
+Qué cambió (resumen)
+---------------------
+- Paleta completa: de crema/dorado cálido a blanco + azul-negro
+  industrial + naranja de seguridad (un solo cambio en
+  tailwind.config.js repinta todo el sitio).
+- Header oscuro permanente con botón "Get a Quote" siempre visible
+  (antes era una franja clara que se ocultaba al hacer scroll).
+- Franja de estadísticas con íconos que aparecen con rebote y números
+  que cuentan hacia arriba al hacer scroll (components/StatsBand.js,
+  archivo nuevo).
+- Sección de servicios convertida a pestañas en vez de tres tarjetas
+  iguales (components/ServicesTabs.js, archivo nuevo).
+- Testimonio único con comillas grandes decorativas y transición de
+  crossfade real al cambiar de reseña.
+- Animaciones de entrada en el hero, zoom lento en las fotos, y
+  pequeños efectos de hover en botones y logo — todo respeta
+  prefers-reduced-motion.
+
+Si algo no compila o se ve distinto a lo que viste en la vista previa,
+dime exactamente qué archivo/sección y lo reviso.

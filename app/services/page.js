@@ -6,6 +6,14 @@ import { getConfig, listServices } from "@/lib/db";
 
 const ICONS = { interior: IconBrush, exterior: IconHouse, reparacion: IconWrench };
 
+// Mismas fotos que la sección "What we do" del home y el carrusel del hero
+// (public/hero/) — mantiene consistencia visual entre páginas.
+const SERVICE_PHOTOS = {
+  interior: "/hero/interior-living.jpg",
+  exterior: "/hero/exterior-house.jpg",
+  reparacion: "/hero/painting-ceiling.jpg",
+};
+
 export const metadata = {
   title: "Painting & Repair Services",
   description: "Interior painting, exterior painting, and home repairs in Virginia — one crew, start to finish.",
@@ -26,15 +34,28 @@ export default async function ServicesPage() {
       </section>
 
       <section className="mx-auto max-w-5xl px-6 pb-24">
-        <div className="flex flex-col gap-px overflow-hidden border border-line bg-line">
-          {services.map((s) => {
+        <div className="flex flex-col gap-8">
+          {services.map((s, i) => {
             const Icon = ICONS[s.id] || IconBrush;
+            const photo = SERVICE_PHOTOS[s.id];
+            const reversed = i % 2 === 1;
             return (
-              <div key={s.id} className="grid grid-cols-1 gap-8 bg-white p-9 md:grid-cols-[auto_1fr]">
-                <div className="flex h-14 w-14 items-center justify-center bg-paper-2">
-                  <Icon className="h-7 w-7 text-gold-dark" />
+              <div
+                key={s.id}
+                className={`grid grid-cols-1 overflow-hidden border border-line bg-white shadow-[0_20px_45px_-30px_rgba(20,23,28,0.4)] md:grid-cols-2 ${
+                  reversed ? "md:[&>*:first-child]:order-2" : ""
+                }`}
+              >
+                <div className="relative h-56 md:h-auto">
+                  {photo && (
+                    /* eslint-disable-next-line @next/next/no-img-element */
+                    <img src={photo} alt={s.title} className="absolute inset-0 h-full w-full object-cover" />
+                  )}
                 </div>
-                <div>
+                <div className="flex flex-col justify-center p-9">
+                  <div className="mb-4 flex h-12 w-12 items-center justify-center bg-paper-2">
+                    <Icon className="h-6 w-6 text-gold-dark" />
+                  </div>
                   <h2 className="mb-2 font-display text-2xl font-bold uppercase text-ink">{s.title}</h2>
                   <p className="mb-4 max-w-xl text-[15px] text-ink-soft">{s.shortDesc}</p>
                   <ul className="grid grid-cols-2 gap-x-6 gap-y-1.5 text-sm text-ink">

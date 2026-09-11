@@ -28,11 +28,32 @@ h1, h2, h3, .font-display {
 }
 
 .btn-primary {
-  @apply inline-flex items-center justify-center gap-2 rounded-[3px] bg-gold px-7 py-3.5 text-[14.5px] font-bold uppercase tracking-wide text-charcoal transition hover:bg-gold-dark hover:text-white active:scale-[0.98];
+  @apply inline-flex items-center justify-center gap-2 rounded-[3px] bg-gold px-7 py-3.5 text-[14.5px] font-bold uppercase tracking-wide text-charcoal shadow-[0_10px_24px_-10px_rgba(255,90,31,0.55)] transition hover:-translate-y-0.5 hover:bg-gold-dark hover:text-white hover:shadow-[0_16px_30px_-10px_rgba(255,90,31,0.6)] active:translate-y-0 active:scale-[0.98];
+}
+
+/* Subrayado dorado que crece desde el centro al pasar el mouse — usado en
+   los links del menú principal, un detalle pequeño que ayuda a que el sitio
+   se sienta hecho a medida en vez de una plantilla genérica. */
+.nav-link {
+  @apply relative;
+}
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -4px;
+  height: 2px;
+  background: #ff5a1f;
+  transform: scaleX(0);
+  transition: transform 0.25s ease;
+}
+.nav-link:hover::after {
+  transform: scaleX(1);
 }
 
 .btn-outline {
-  @apply inline-flex items-center justify-center gap-2 rounded-[3px] border-[1.5px] border-ink px-7 py-3.5 text-[14.5px] font-bold uppercase tracking-wide text-ink transition hover:bg-ink hover:text-white active:scale-[0.98];
+  @apply inline-flex items-center justify-center gap-2 rounded-[3px] border-[1.5px] border-ink px-7 py-3.5 text-[14.5px] font-bold uppercase tracking-wide text-ink transition hover:-translate-y-0.5 hover:bg-ink hover:text-white active:translate-y-0 active:scale-[0.98];
 }
 
 .btn-ghost {
@@ -78,4 +99,72 @@ h1, h2, h3, .font-display {
     transform: none;
     transition: none;
   }
+}
+
+/* --- Motion: entrada escalonada del hero (headline, texto, botones) --- */
+.hero-anim {
+  opacity: 0;
+  transform: translateY(16px);
+  animation: heroUp 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
+}
+@keyframes heroUp {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- Motion: zoom lento (Ken Burns) del fondo del hero --- */
+.hero-kenburns {
+  transform: scale(1.1);
+  animation: heroKenBurns 9s ease-out forwards;
+}
+@keyframes heroKenBurns {
+  to { transform: scale(1); }
+}
+
+/* --- Motion: pop de los círculos de íconos en la franja de stats --- */
+.stat-ring {
+  transform: scale(0.6);
+  opacity: 0;
+  transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.5s ease;
+}
+.stat-ring.is-visible {
+  transform: scale(1);
+  opacity: 1;
+}
+
+/* --- Motion: fundido de entrada al cambiar de pestaña de servicio --- */
+.svc-content-enter {
+  animation: svcContentIn 0.45s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+@keyframes svcContentIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- Motion: fundido + zoom lento de la foto al cambiar de pestaña --- */
+.svc-img-enter {
+  opacity: 0;
+  transform: scale(1.08);
+  animation: svcImgFade 0.5s ease forwards, svcImgZoom 5s cubic-bezier(0.2, 0.6, 0.2, 1) forwards;
+}
+@keyframes svcImgFade {
+  to { opacity: 1; }
+}
+@keyframes svcImgZoom {
+  to { transform: scale(1); }
+}
+
+/* --- Motion: crossfade de la tarjeta de testimonio al cambiar de reseña --- */
+.testi-fade {
+  transition: opacity 0.22s ease, transform 0.22s ease;
+}
+.testi-fade.is-out {
+  opacity: 0;
+  transform: translateY(6px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-anim, .hero-kenburns { animation: none !important; opacity: 1 !important; transform: none !important; }
+  .stat-ring { opacity: 1 !important; transform: none !important; }
+  .svc-content-enter, .svc-img-enter { animation: none !important; opacity: 1 !important; transform: none !important; }
+  .testi-fade.is-out { opacity: 1 !important; transform: none !important; }
 }

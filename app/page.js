@@ -8,13 +8,22 @@ import TestimonialCarousel from "@/components/TestimonialCarousel";
 import FaqAccordion from "@/components/FaqAccordion";
 import LeadForm from "@/components/LeadForm";
 import Reveal from "@/components/Reveal";
-import { IconCheck, IconClock, IconHeart, IconBrush, IconHouse, IconWrench, IconStar, IconWhatsapp } from "@/components/Icons";
+import { IconCheck, IconClock, IconHeart, IconWhatsapp } from "@/components/Icons";
 import { getConfig, listPortfolio, listReviews, listServices, listFaq } from "@/lib/db";
 import { buildWhatsAppLink } from "@/lib/whatsapp";
-import { MapArt } from "@/components/BrandArt";
+import ServiceAreaMap from "@/components/ServiceAreaMap";
 import HeroCarousel from "@/components/HeroCarousel";
+import ServicesTabs from "@/components/ServicesTabs";
+import StatsBand from "@/components/StatsBand";
 
-const SERVICE_ICONS = { interior: IconBrush, exterior: IconHouse, reparacion: IconWrench };
+// Fotos usadas como fondo de las tarjetas de servicio en la sección "What we
+// do" — mismas fotos del carrusel del hero (public/hero/). Cuando Michael
+// tenga fotos propias por servicio, basta con reemplazar estos archivos.
+const SERVICE_PHOTOS = {
+  interior: "/hero/interior-living.jpg",
+  exterior: "/hero/exterior-house.jpg",
+  reparacion: "/hero/painting-ceiling.jpg",
+};
 
 export default async function HomePage() {
   const [config, portfolioAll, reviews, services, faq] = await Promise.all([
@@ -24,33 +33,55 @@ export default async function HomePage() {
     listServices(),
     listFaq(),
   ]);
-  const portfolio = portfolioAll.slice(0, 3);
-  const [featured, ...rest] = services;
+  // Los proyectos sin ninguna foto nunca se muestran en el sitio público —
+  // se filtran antes de tomar los primeros 3, para que el home siempre
+  // intente mostrar 3 proyectos reales en vez de huecos vacíos.
+  const portfolioWithPhotos = portfolioAll.filter((p) => p.beforeUrl || p.afterUrl);
+  const portfolio = portfolioWithPhotos.slice(0, 3);
   const whatsappLink = buildWhatsAppLink(config.whatsapp);
+
+  const avgRating = reviews.length
+    ? (reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length).toFixed(1)
+    : null;
 
   return (
     <>
       <SiteHeader config={config} />
 
-      {/* Hero */}
-      <section className="mx-auto grid max-w-6xl grid-cols-1 items-center gap-14 px-6 py-16 md:grid-cols-2 md:py-24">
-        <div>
-          <div className="eyebrow mb-4">Interior &amp; Exterior Painting · Home Repairs</div>
-          <h1 className="mb-6 font-display text-5xl font-black uppercase leading-[0.98] text-ink md:text-6xl">
+      {/* Hero — foto de fondo a toda la pantalla con el titular superpuesto,
+          en vez de una fotito chica a un lado. Es el patrón que se repite en
+          todas las plantillas de servicios para el hogar que revisamos:
+          la imagen ES el fondo, no un elemento decorativo aparte. */}
+      <section className="relative isolate flex min-h-[640px] items-end overflow-hidden bg-charcoal text-white sm:min-h-[86vh]">
+        <HeroCarousel className="absolute inset-0 -z-20 h-full w-full" />
+        <div className="absolute inset-0 -z-10 bg-gradient-to-t from-charcoal via-charcoal/70 to-charcoal/25" />
+
+        <div className="relative mx-auto w-full max-w-6xl px-6 pb-20 pt-36 sm:pb-24">
+          {/* Entrada escalonada — cada línea aparece un poco después que la
+              anterior en vez de que todo el hero aparezca de golpe. */}
+          <div className="eyebrow hero-anim mb-4 text-gold" style={{ animationDelay: "150ms" }}>
+            Interior &amp; Exterior Painting · Home Repairs
+          </div>
+          <h1
+            className="hero-anim mb-6 max-w-3xl font-display text-6xl font-black uppercase leading-[0.94] md:text-7xl"
+            style={{ animationDelay: "280ms" }}
+          >
             {config.heroHeadline}
           </h1>
-          <p className="mb-8 max-w-md text-lg leading-relaxed text-ink-soft">
+          <p className="hero-anim mb-9 max-w-lg text-lg leading-relaxed text-white/80" style={{ animationDelay: "420ms" }}>
             {config.heroSubheadline}
           </p>
-          <div className="mb-7 flex flex-wrap gap-4">
+          <div className="hero-anim flex flex-wrap gap-4" style={{ animationDelay: "560ms" }}>
             <Link href="/estimate" className="btn-primary">Get a Free Estimate</Link>
-            <a href={`tel:${config.phone}`} className="btn-outline">Call Now</a>
+            <a href={`tel:${config.phone}`} className="btn-outline border-white text-white hover:bg-white hover:text-charcoal">
+              Call Now
+            </a>
             {whatsappLink && (
               <a
                 href={whatsappLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-outline flex items-center gap-2"
+                className="btn-outline flex items-center gap-2 border-white text-white hover:bg-white hover:text-charcoal"
               >
                 <IconWhatsapp className="h-4 w-4" /> WhatsApp
               </a>
@@ -58,77 +89,39 @@ export default async function HomePage() {
           </div>
         </div>
 
-        <div className="relative">
-          <HeroCarousel className="h-[420px] border border-line" />
-          <div className="absolute -bottom-6 -left-6 bg-charcoal px-6 py-4 text-white shadow-xl">
-            <div className="font-display text-lg font-bold uppercase leading-snug">Free, no-pressure<br />estimates</div>
-          </div>
-        </div>
+        {/* Cuña diagonal al pie del hero — el detalle de "divisor con forma"
+            que se repite en todas las plantillas de referencia, en vez de un
+            corte recto entre secciones. */}
+        <div
+          className="pointer-events-none absolute inset-x-0 bottom-0 h-10 bg-paper sm:h-14"
+          style={{ clipPath: "polygon(0 100%, 100% 30%, 100% 100%)" }}
+        />
       </section>
+
+      {/* Franja de estadísticas — banda oscura con ícono en círculo naranja +
+          número grande blanco por columna, el patrón de "counter section"
+          de las plantillas de referencia, en vez de texto plano sobre fondo
+          claro. Los íconos aparecen con rebote y los números cuentan hacia
+          arriba al entrar en pantalla (ver components/StatsBand.js). */}
+      <StatsBand
+        yearsInBusiness={config.yearsInBusiness}
+        avgRating={avgRating}
+        reviewCount={reviews.length}
+      />
 
       {/* Trust bar */}
-      <section className="border-y border-line bg-paper-2 py-6">
+      <section className="border-b border-line bg-paper-2 py-6">
         <div className="mx-auto grid max-w-6xl grid-cols-2 gap-6 px-6 text-sm font-bold text-ink sm:grid-cols-4">
-          <div className="flex items-center gap-2.5"><IconCheck className="h-5 w-5 text-gold-dark" />Free estimates</div>
-          <div className="flex items-center gap-2.5"><IconClock className="h-5 w-5 text-gold-dark" />Same-day response</div>
-          <div className="flex items-center gap-2.5"><IconHeart className="h-5 w-5 text-gold-dark" />Clear, upfront pricing</div>
-          <div className="flex items-center gap-2.5"><IconCheck className="h-5 w-5 text-gold-dark" />Work guaranteed</div>
+          <div className="group flex items-center gap-2.5"><IconCheck className="h-5 w-5 text-gold-dark transition-transform duration-200 group-hover:scale-[1.15] group-hover:-rotate-[4deg]" />Free estimates</div>
+          <div className="group flex items-center gap-2.5"><IconClock className="h-5 w-5 text-gold-dark transition-transform duration-200 group-hover:scale-[1.15] group-hover:-rotate-[4deg]" />Same-day response</div>
+          <div className="group flex items-center gap-2.5"><IconHeart className="h-5 w-5 text-gold-dark transition-transform duration-200 group-hover:scale-[1.15] group-hover:-rotate-[4deg]" />Clear, upfront pricing</div>
+          <div className="group flex items-center gap-2.5"><IconCheck className="h-5 w-5 text-gold-dark transition-transform duration-200 group-hover:scale-[1.15] group-hover:-rotate-[4deg]" />Work guaranteed</div>
         </div>
       </section>
 
-      {/* Services — one featured + two secondary, not three identical cards */}
-      <section id="services" className="mx-auto max-w-6xl px-6 py-24">
-        <Reveal>
-          <div className="mb-14 max-w-xl">
-            <div className="eyebrow mb-3">What we do</div>
-            <h2 className="font-display text-4xl font-bold uppercase text-ink">One crew for the whole project</h2>
-          </div>
-        </Reveal>
-        <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1.3fr_1fr]">
-          {featured && (
-            <Reveal>
-              <div className="flex h-full flex-col justify-between border border-line bg-charcoal p-10 text-white">
-                <div>
-                  <IconBrush className="mb-5 h-9 w-9 text-gold" />
-                  <div className="mb-2 font-display text-2xl font-bold uppercase">{featured.title}</div>
-                  <p className="mb-6 max-w-sm text-[15px] text-white/70">{featured.shortDesc}</p>
-                  <ul className="grid grid-cols-2 gap-x-6 gap-y-1.5 text-sm text-white/85">
-                    {featured.items.map((it) => (
-                      <li key={it} className="flex items-center gap-2">
-                        <span className="h-1.5 w-1.5 bg-gold" />
-                        {it}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                <Link href="/services" className="btn-outline mt-8 w-fit border-white text-white hover:bg-white hover:text-charcoal">
-                  See details
-                </Link>
-              </div>
-            </Reveal>
-          )}
-          <div className="flex flex-col gap-6">
-            {rest.map((s, i) => {
-              const Icon = SERVICE_ICONS[s.id] || IconBrush;
-              return (
-                <Reveal key={s.id} delay={i * 90}>
-                  <div className="flex h-full flex-col justify-between border border-line bg-white p-7">
-                    <div>
-                      <Icon className="mb-4 h-7 w-7 text-gold-dark" />
-                      <div className="mb-2 font-display text-lg font-bold uppercase text-ink">{s.title}</div>
-                      <p className="text-[14.5px] text-ink-soft">{s.shortDesc}</p>
-                    </div>
-                  </div>
-                </Reveal>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      <ProcessSteps />
-
-      {/* Portfolio — interactive filter + drag slider */}
+      {/* Portfolio — moved up front, right after the trust bar. This is what
+          visitors come to check first for a painting/repair business, so it
+          shouldn't be buried below services and the process steps. */}
       <section id="portfolio" className="mx-auto max-w-6xl px-6 py-24">
         <Reveal>
           <div className="mx-auto mb-3 max-w-xl text-center">
@@ -139,8 +132,39 @@ export default async function HomePage() {
             Slide the control on each photo to compare before and after.
           </p>
         </Reveal>
-        <PortfolioGrid items={portfolio} />
+        {portfolio.length > 0 ? (
+          <PortfolioGrid items={portfolio} />
+        ) : (
+          <div className="rounded-sm border border-dashed border-line py-16 text-center text-ink-faint">
+            Photos of recent projects are coming soon.
+          </div>
+        )}
       </section>
+
+      {/* Services — layout de pestañas (click en el título de la izquierda
+          cambia la foto y los detalles de la derecha) en vez de tres
+          tarjetas iguales. Es un patrón de UI distinto, no solo un
+          repintado, y es el que más se repite en las plantillas de
+          construcción/reparación que sirvieron de referencia. */}
+      <section id="services" className="relative bg-charcoal py-24">
+        <div
+          className="pointer-events-none absolute inset-x-0 top-0 h-10 bg-paper sm:h-14"
+          style={{ clipPath: "polygon(0 0, 100% 0, 100% 70%, 0 100%)" }}
+        />
+        <div className="mx-auto max-w-6xl px-6">
+          <Reveal>
+            <div className="mb-14 max-w-xl">
+              <div className="eyebrow mb-3">What we do</div>
+              <h2 className="font-display text-4xl font-bold uppercase text-white">One crew for the whole project</h2>
+            </div>
+          </Reveal>
+          <Reveal>
+            <ServicesTabs services={services} photos={SERVICE_PHOTOS} />
+          </Reveal>
+        </div>
+      </section>
+
+      <ProcessSteps />
 
       <WhyChooseUs config={config} />
 
@@ -184,7 +208,13 @@ export default async function HomePage() {
             <h2 className="font-display text-4xl font-bold uppercase text-ink">Trusted by your neighbors</h2>
           </div>
         </Reveal>
-        <TestimonialCarousel reviews={reviews} />
+        {reviews.length > 0 ? (
+          <TestimonialCarousel reviews={reviews} />
+        ) : (
+          <div className="mx-auto max-w-md rounded-sm border border-dashed border-line py-16 text-center text-ink-faint">
+            No reviews yet — <Link href="/reviews" className="font-semibold text-gold-dark underline">be the first to leave one</Link>.
+          </div>
+        )}
       </section>
 
       {/* FAQ */}
@@ -204,7 +234,7 @@ export default async function HomePage() {
           <div className="eyebrow mb-3">Service area</div>
           <h3 className="mb-5 font-display text-2xl font-bold uppercase text-ink">{config.serviceArea}</h3>
           <div className="h-64 overflow-hidden border border-line bg-white">
-            <MapArt className="h-full w-full" />
+            <ServiceAreaMap config={config} className="h-full w-full" />
           </div>
         </div>
         <div className="border border-line bg-white p-8">

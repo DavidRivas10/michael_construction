@@ -46,6 +46,7 @@ create table if not exists portfolio (
   title text,
   category text,
   location text,
+  description text,
   before_url text,
   after_url text,
   featured boolean default false,
@@ -61,6 +62,7 @@ create table if not exists reviews (
   text text,
   neighborhood text,
   is_example boolean default false,
+  is_approved boolean default true,
   created_at timestamptz default now()
 );
 alter table reviews enable row level security;

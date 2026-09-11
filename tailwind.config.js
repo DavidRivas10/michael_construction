@@ -7,11 +7,17 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        ink: { DEFAULT: "#14171C", soft: "#4B5157", faint: "#7B818A" },
-        paper: { DEFAULT: "#F6F7F5", 2: "#ECEEEA", 3: "#E3E6E0" },
-        line: "#DBDFD9",
-        charcoal: { DEFAULT: "#1B1E1B", soft: "#262A26" },
-        gold: { DEFAULT: "#B8862E", dark: "#8F6A22", soft: "#F3E7CD" },
+        // Paleta v4 — pasa de un tono cálido (crema + dorado + carbón cálido)
+        // a uno frío y de alto contraste (blanco puro + naranja de seguridad
+        // + azul-negro industrial), el patrón que se repite en las
+        // plantillas de referencia de construcción/reparación. Los nombres
+        // de clase ("gold", "charcoal") se mantienen a propósito — así este
+        // único archivo repinta todo el sitio sin tocar cada componente.
+        ink: { DEFAULT: "#0F1115", soft: "#464C58", faint: "#7A8090" },
+        paper: { DEFAULT: "#FFFFFF", 2: "#F2F3F6", 3: "#E7E9EE" },
+        line: "#E1E3E9",
+        charcoal: { DEFAULT: "#0A0C12", soft: "#151822" },
+        gold: { DEFAULT: "#FF5A1F", dark: "#D9450F", soft: "#FFE3D3" },
       },
       fontFamily: {
         display: ["'Big Shoulders Display'", "system-ui", "sans-serif"],
