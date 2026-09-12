@@ -57,7 +57,7 @@ export default function ServicesTabs({ services, photos }) {
         })}
       </div>
 
-      <div className="relative flex min-h-[420px] flex-col justify-end overflow-hidden bg-charcoal-soft sm:min-h-[460px]">
+      <div className="relative flex min-h-[420px] flex-col justify-end overflow-hidden bg-charcoal-soft sm:min-h-[460px] lg:[clip-path:polygon(0_44px,44px_0,100%_0,100%_100%,0_100%)]">
         {photo && (
           /* eslint-disable-next-line @next/next/no-img-element */
           <img

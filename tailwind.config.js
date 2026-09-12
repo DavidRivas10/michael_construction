@@ -7,21 +7,27 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        // Paleta v4 — pasa de un tono cálido (crema + dorado + carbón cálido)
-        // a uno frío y de alto contraste (blanco puro + naranja de seguridad
-        // + azul-negro industrial), el patrón que se repite en las
-        // plantillas de referencia de construcción/reparación. Los nombres
-        // de clase ("gold", "charcoal") se mantienen a propósito — así este
-        // único archivo repinta todo el sitio sin tocar cada componente.
-        ink: { DEFAULT: "#0F1115", soft: "#464C58", faint: "#7A8090" },
-        paper: { DEFAULT: "#FFFFFF", 2: "#F2F3F6", 3: "#E7E9EE" },
-        line: "#E1E3E9",
-        charcoal: { DEFAULT: "#0A0C12", soft: "#151822" },
+        // Paleta v5 — alineada con la identidad de marca definitiva
+        // (roofline mark azul-marino + gris + wordmark "MICHAEL
+        // CONSTRUCTION"). "charcoal" pasa de negro neutro a un
+        // azul-marino casi negro (mismo tono que el ícono del logo), y se
+        // suma "navy" como color de marca de rango medio para acentos,
+        // bordes y detalles — junto al naranja ("gold") como único color
+        // de acento cálido, igual que antes. Los nombres de clase se
+        // mantienen a propósito para no tocar cada componente.
+        ink: { DEFAULT: "#10151F", soft: "#454C5C", faint: "#7B8394" },
+        paper: { DEFAULT: "#FFFFFF", 2: "#F3F4F7", 3: "#E8EAEF" },
+        line: "#E1E4EA",
+        charcoal: { DEFAULT: "#0A0F1C", soft: "#141C2E" },
+        navy: { DEFAULT: "#1C2D4A", dark: "#121D33", light: "#5E6B85", soft: "#EAEDF3" },
         gold: { DEFAULT: "#FF5A1F", dark: "#D9450F", soft: "#FFE3D3" },
       },
       fontFamily: {
         display: ["'Big Shoulders Display'", "system-ui", "sans-serif"],
         sans: ["'Public Sans'", "system-ui", "sans-serif"],
+      },
+      boxShadow: {
+        premium: "0 30px 70px -30px rgba(10,15,28,0.35)",
       },
     },
   },

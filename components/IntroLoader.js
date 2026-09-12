@@ -58,20 +58,19 @@ export default function IntroLoader({ businessName }) {
 
       <div className="flex flex-col items-center gap-4">
         <svg
-          width="40"
+          width="46"
           height="40"
-          viewBox="0 0 24 24"
+          viewBox="0 0 64 52"
           fill="none"
           stroke="#FF5A1F"
-          strokeWidth="2"
-          strokeLinecap="round"
+          strokeWidth="1.6"
           strokeLinejoin="round"
           className="animate-[introIcon_0.6s_ease-out_forwards]"
           style={{ opacity: 0, transform: "translateY(6px) scale(0.9)" }}
         >
-          <path d="M3 21h18" pathLength="1" strokeDasharray="1" strokeDashoffset="1" className="animate-[introDraw_0.5s_0.15s_ease-out_forwards]" />
-          <path d="M6 21V9l6-5 6 5v12" pathLength="1" strokeDasharray="1" strokeDashoffset="1" className="animate-[introDraw_0.6s_0.2s_ease-out_forwards]" />
-          <path d="M10 21v-6h4v6" pathLength="1" strokeDasharray="1" strokeDashoffset="1" className="animate-[introDraw_0.4s_0.55s_ease-out_forwards]" />
+          <path d="M25 30 L41 6 L57 30 Z" pathLength="1" strokeDasharray="1" strokeDashoffset="1" opacity="0.55" className="animate-[introDraw_0.5s_0.1s_ease-out_forwards]" />
+          <path d="M3 32 L27 9 L51 32 Z" pathLength="1" strokeDasharray="1" strokeDashoffset="1" className="animate-[introDraw_0.6s_0.25s_ease-out_forwards]" />
+          <rect x="21" y="21" width="12" height="11" rx="0.5" pathLength="1" strokeDasharray="1" strokeDashoffset="1" className="animate-[introDraw_0.4s_0.6s_ease-out_forwards]" />
         </svg>
         <div
           className="font-display text-xl font-bold uppercase tracking-wide text-white animate-[introIcon_0.5s_0.3s_ease-out_forwards]"

@@ -9,9 +9,9 @@ const ICONS = { interior: IconBrush, exterior: IconHouse, reparacion: IconWrench
 // Mismas fotos que la sección "What we do" del home y el carrusel del hero
 // (public/hero/) — mantiene consistencia visual entre páginas.
 const SERVICE_PHOTOS = {
-  interior: "/hero/interior-living.jpg",
-  exterior: "/hero/exterior-house.jpg",
-  reparacion: "/hero/painting-ceiling.jpg",
+  interior: "/hero/service-interior-painting-1.jpg",
+  exterior: "/hero/service-exterior-painting-1.jpg",
+  reparacion: "/hero/service-home-repairs-1.jpg",
 };
 
 export const metadata = {
@@ -25,7 +25,7 @@ export default async function ServicesPage() {
   return (
     <>
       <SiteHeader config={config} />
-      <section className="mx-auto max-w-4xl px-6 py-20 text-center">
+      <section className="relative mx-auto max-w-4xl px-6 py-20 text-center">
         <div className="eyebrow mb-3">Services</div>
         <h1 className="mb-4 font-display text-5xl font-black uppercase text-ink">Everything your home needs</h1>
         <p className="mx-auto max-w-xl text-lg text-ink-soft">
@@ -46,10 +46,16 @@ export default async function ServicesPage() {
                   reversed ? "md:[&>*:first-child]:order-2" : ""
                 }`}
               >
-                <div className="relative h-56 md:h-auto">
+                <div className="group relative h-56 overflow-hidden md:h-auto">
                   {photo && (
                     /* eslint-disable-next-line @next/next/no-img-element */
-                    <img src={photo} alt={s.title} className="absolute inset-0 h-full w-full object-cover" />
+                    <img
+                      src={photo}
+                      alt={s.title}
+                      loading="lazy"
+                      decoding="async"
+                      className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-[1.05]"
+                    />
                   )}
                 </div>
                 <div className="flex flex-col justify-center p-9">
@@ -72,7 +78,7 @@ export default async function ServicesPage() {
           })}
         </div>
 
-        <div className="mt-14 flex flex-col items-center gap-5 bg-charcoal px-8 py-12 text-center">
+        <div className="mt-14 flex flex-col items-center gap-5 bg-navy-dark px-8 py-12 text-center">
           <h3 className="font-display text-2xl font-bold uppercase text-white">Which one do you need?</h3>
           <Link href="/estimate" className="btn-primary">Get My Price</Link>
         </div>

@@ -63,7 +63,7 @@ export default function StatsBand({ yearsInBusiness, avgRating, reviewCount }) {
           observer.disconnect();
         }
       },
-      { threshold: 0.4 }
+      { threshold: 0.1 }
     );
     observer.observe(el);
     return () => observer.disconnect();
@@ -78,7 +78,7 @@ export default function StatsBand({ yearsInBusiness, avgRating, reviewCount }) {
       <div className="mx-auto grid max-w-6xl grid-cols-2 gap-y-10 px-6 sm:grid-cols-4 sm:divide-x sm:divide-white/10">
         <div className="flex flex-col items-center gap-3 text-center sm:px-6">
           <Ring delay={50} active={active}><IconClipboard className="h-6 w-6" /></Ring>
-          <div className="font-display text-4xl font-black text-white">{years}+</div>
+          <div className="font-display text-3xl font-black text-white sm:text-4xl">{years}+</div>
           <div className="text-[12.5px] font-bold uppercase tracking-wide text-white/55">Years in business</div>
         </div>
 
@@ -86,14 +86,14 @@ export default function StatsBand({ yearsInBusiness, avgRating, reviewCount }) {
           <Ring delay={150} active={active}><IconStar className="h-6 w-6" /></Ring>
           {avgRating ? (
             <>
-              <div className="font-display text-4xl font-black text-white">{rating}<span className="text-xl text-white/50">/5</span></div>
+              <div className="font-display text-3xl font-black text-white sm:text-4xl">{rating}<span className="text-lg text-white/50 sm:text-xl">/5</span></div>
               <div className="text-[12.5px] font-bold uppercase tracking-wide text-white/55">
                 From {count} review{reviewCount !== 1 ? "s" : ""}
               </div>
             </>
           ) : (
             <>
-              <div className="font-display text-4xl font-black text-white">100%</div>
+              <div className="font-display text-3xl font-black text-white sm:text-4xl">100%</div>
               <div className="text-[12.5px] font-bold uppercase tracking-wide text-white/55">No-pressure estimates</div>
             </>
           )}
@@ -101,13 +101,13 @@ export default function StatsBand({ yearsInBusiness, avgRating, reviewCount }) {
 
         <div className="flex flex-col items-center gap-3 text-center sm:px-6">
           <Ring delay={250} active={active}><IconClock className="h-6 w-6" /></Ring>
-          <div className="font-display text-4xl font-black text-white">Same-day</div>
+          <div className="font-display text-3xl font-black text-white sm:text-4xl">Same-day</div>
           <div className="text-[12.5px] font-bold uppercase tracking-wide text-white/55">Response, most requests</div>
         </div>
 
         <div className="flex flex-col items-center gap-3 text-center sm:px-6">
           <Ring delay={350} active={active}><IconCheck className="h-6 w-6" /></Ring>
-          <div className="font-display text-4xl font-black text-white">Licensed</div>
+          <div className="font-display text-3xl font-black text-white sm:text-4xl">Licensed</div>
           <div className="text-[12.5px] font-bold uppercase tracking-wide text-white/55">&amp; fully insured</div>
         </div>
       </div>
