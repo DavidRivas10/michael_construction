@@ -7,6 +7,11 @@ import IntroLoader from "@/components/IntroLoader";
 // el build — cada visita necesita una consulta fresca. `force-dynamic` en el
 // layout raíz aplica a todas las páginas del sitio (públicas y admin).
 export const dynamic = "force-dynamic";
+// Ver el comentario en lib/supabaseClient.js -- force-dynamic por si solo no
+// garantiza que cada fetch() individual (como los de supabase-js) evite el
+// cache de datos de Next.js/Vercel. fetchCache = "force-no-store" lo hace
+// explicito a nivel de segmento de ruta, para toda la app.
+export const fetchCache = "force-no-store";
 
 // NOTA: intentamos next/font/google (auto-hosting + sin layout shift), pero
 // el entorno de build de este sandbox no tiene salida de red hacia Google
