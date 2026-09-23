@@ -7,20 +7,20 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        // Paleta v5 — alineada con la identidad de marca definitiva
-        // (roofline mark azul-marino + gris + wordmark "MICHAEL
-        // CONSTRUCTION"). "charcoal" pasa de negro neutro a un
-        // azul-marino casi negro (mismo tono que el ícono del logo), y se
-        // suma "navy" como color de marca de rango medio para acentos,
-        // bordes y detalles — junto al naranja ("gold") como único color
-        // de acento cálido, igual que antes. Los nombres de clase se
-        // mantienen a propósito para no tocar cada componente.
+        // Paleta v6 — alineada con la identidad de marca final aprobada
+        // de "Maykar Professional Painting" (guía de marca de
+        // septiembre 2026): navy #0E2D57 + naranja vibrante #F47B20
+        // como acento cálido ("gold" se mantiene como nombre de clase
+        // por compatibilidad, aunque ahora es el naranja de marca).
+        // "charcoal" queda igual (azul-marino casi negro, uso interno
+        // de fondos oscuros del sitio, no es uno de los 4 colores de
+        // marca del PDF de identidad).
         ink: { DEFAULT: "#10151F", soft: "#454C5C", faint: "#7B8394" },
         paper: { DEFAULT: "#FFFFFF", 2: "#F3F4F7", 3: "#E8EAEF" },
         line: "#E1E4EA",
         charcoal: { DEFAULT: "#0A0F1C", soft: "#141C2E" },
-        navy: { DEFAULT: "#1C2D4A", dark: "#121D33", light: "#5E6B85", soft: "#EAEDF3" },
-        gold: { DEFAULT: "#FF5A1F", dark: "#D9450F", soft: "#FFE3D3" },
+        navy: { DEFAULT: "#0E2D57", dark: "#0A2144", light: "#5E6B85", soft: "#EAEDF3" },
+        gold: { DEFAULT: "#F47B20", dark: "#CF691B", soft: "#FDEBDE" },
       },
       fontFamily: {
         display: ["'Big Shoulders Display'", "system-ui", "sans-serif"],

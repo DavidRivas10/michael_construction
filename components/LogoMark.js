@@ -1,28 +1,30 @@
 // ---------------------------------------------------------------------------
-// Marca "Maykar Professional Painting" — reinterpretada en SVG a partir del
-// concepto final aprobado en el moodboard (roofline de dos aguas
-// superpuestas + ventana central, wordmark condensado en dos líneas y
-// tagline "Quality Spaces. Stronger Lives."). Vive como componente inline
-// en vez de un archivo de imagen exportado para poder recolorearla según
-// el fondo (variant "dark" = marca azul-marino/gris para header/footer
+// Marca "Maykar Professional Painting" — reinterpretada en SVG a partir de
+// la dirección final aprobada en la guía de marca (icono M/techo de casa
+// en azul marino + "ala"/pincelada naranja como acento fijo, wordmark en
+// dos líneas "MAYKAR" / "PROFESSIONAL PAINTING"). Vive como componente
+// inline en vez de un archivo de imagen exportado para poder recolorearla
+// según el fondo (variant "dark" = marca azul marino para header/footer
 // claros, "light" = marca blanca para el hero con foto y fondos oscuros)
 // sin mantener múltiples PNG ni arrastrar nunca un rectángulo blanco
-// detrás del logo.
+// detrás del logo. El naranja de marca (#F47B20) no cambia entre
+// variantes: es el color de acento fijo de la identidad aprobada.
 // ---------------------------------------------------------------------------
 
 export function LogoIcon({ className = "h-8 w-8", variant = "dark" }) {
-  const front = variant === "light" ? "#FFFFFF" : "#1C2D4A";
-  const back = variant === "light" ? "rgba(255,255,255,0.5)" : "#9098A8";
+  const front = variant === "light" ? "#FFFFFF" : "#0E2D57";
+  const wing = "#F47B20";
   const punch = variant === "light" ? "#0A0F1C" : "#FFFFFF";
 
   return (
     <svg viewBox="0 0 64 52" className={className} role="img" aria-hidden="true">
-      {/* Segunda agua (gris), desplazada a la derecha y más alta — se asoma
-          detrás del techo principal */}
-      <path d="M25 30 L41 6 L57 30 Z" fill={back} />
-      {/* Agua principal (azul marino / blanca), al frente y a la izquierda */}
+      {/* "Ala"/pincelada naranja — desplazada a la derecha y más alta, se
+          asoma detrás del techo principal (color de acento fijo de marca,
+          no cambia entre variantes claro/oscuro) */}
+      <path d="M25 30 L41 6 L57 30 Z" fill={wing} />
+      {/* Agua principal / casa (azul marino o blanca según el fondo) */}
       <path d="M3 32 L27 9 L51 32 Z" fill={front} />
-      {/* Ventana de 4 paneles en el punto donde se cruzan ambas aguas */}
+      {/* Ventana de 4 paneles en el punto donde se cruzan ambas formas */}
       <rect x="21" y="21" width="12" height="11" rx="0.5" fill={punch} />
       <path d="M27 21 V32 M21 26.5 H33" stroke={front} strokeWidth="1.3" />
     </svg>
