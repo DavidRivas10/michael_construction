@@ -41,10 +41,10 @@ export function LogoMark({ className = "", variant = "dark", tagline = false, si
       <LogoIcon className={`${iconSize} shrink-0`} variant={variant} />
       <div className="leading-[1.05]">
         <div className={`font-display ${nameSize} font-bold uppercase tracking-wide ${textColor}`}>
-          Michael
+          Maykar
         </div>
         <div className={`-mt-0.5 font-sans text-[0.34em] font-semibold uppercase tracking-[0.28em] ${subColor}`}>
-          Construction
+          Professional Painting
         </div>
         {tagline && (
           <div className={`mt-1.5 text-[10px] font-semibold uppercase tracking-[0.1em] ${taglineColor}`}>
