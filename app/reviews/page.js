@@ -7,7 +7,7 @@ import { getConfig, listReviews } from "@/lib/db";
 
 export const metadata = {
   title: "Reviews",
-  description: "What Virginia homeowners say about working with Michael Construction.",
+  description: "What Virginia homeowners say about working with Maykar Professional Painting.",
 };
 
 export default async function ReviewsPage() {

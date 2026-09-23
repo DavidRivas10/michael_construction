@@ -2,9 +2,9 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { IconPhone, IconWhatsapp } from "./Icons";
+import { IconPhone, IconMessage } from "./Icons";
 import { LogoMark } from "./LogoMark";
-import { buildWhatsAppLink } from "@/lib/whatsapp";
+import { buildSmsLink } from "@/lib/sms";
 
 // v5 — el header ahora tiene dos estados reales en vez de un fondo oscuro
 // fijo: transparente sobre la foto del hero (logo blanco, sin caja
@@ -36,7 +36,7 @@ export default function SiteHeader({ config, overHero = false }) {
   }, [overHero]);
 
   const transparent = overHero && !scrolled;
-  const whatsappLink = buildWhatsAppLink(config.whatsapp);
+  const smsLink = buildSmsLink(config.smsPhone);
 
   const links = [
     { href: "/services", label: "Services" },
@@ -67,10 +67,10 @@ export default function SiteHeader({ config, overHero = false }) {
               <span>Free estimates, same-day response</span>
             </div>
             <div className="flex items-center gap-5">
-              {whatsappLink && (
-                <a href={whatsappLink} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 hover:text-white">
-                  <IconWhatsapp className="h-3 w-3" />
-                  WhatsApp
+              {smsLink && (
+                <a href={smsLink} className="flex items-center gap-1.5 hover:text-white">
+                  <IconMessage className="h-3 w-3" />
+                  Text Us
                 </a>
               )}
               <a href={`tel:${config.phone}`} className="flex items-center gap-1.5 hover:text-white">
@@ -137,15 +137,13 @@ export default function SiteHeader({ config, overHero = false }) {
               <IconPhone className="h-4 w-4" />
               {config.phone}
             </a>
-            {whatsappLink && (
+            {smsLink && (
               <a
-                href={whatsappLink}
-                target="_blank"
-                rel="noopener noreferrer"
+                href={smsLink}
                 className="flex items-center gap-1.5 rounded-sm px-2 py-2.5 text-[15px] font-bold text-gold"
               >
-                <IconWhatsapp className="h-4 w-4" />
-                Chat on WhatsApp
+                <IconMessage className="h-4 w-4" />
+                Text Us
               </a>
             )}
           </nav>

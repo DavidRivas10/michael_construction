@@ -1,5 +1,5 @@
 // ---------------------------------------------------------------------------
-// Marca "Michael Construction" — reinterpretada en SVG a partir del
+// Marca "Maykar Professional Painting" — reinterpretada en SVG a partir del
 // concepto final aprobado en el moodboard (roofline de dos aguas
 // superpuestas + ventana central, wordmark condensado en dos líneas y
 // tagline "Quality Spaces. Stronger Lives."). Vive como componente inline

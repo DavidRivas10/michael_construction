@@ -10,7 +10,7 @@ const CONTENT_FIELDS = [
 const CONTACT_FIELDS = [
   { key: "businessName", label: "Nombre del negocio" },
   { key: "phone", label: "Teléfono" },
-  { key: "whatsapp", label: "WhatsApp (con código de país, sin +)" },
+  { key: "smsPhone", label: "Teléfono para mensajes de texto (formato internacional, ej. +14347609139)" },
   { key: "email", label: "Correo de contacto" },
   { key: "serviceArea", label: "Zona de servicio" },
   { key: "licenseState", label: "Estado de la licencia" },

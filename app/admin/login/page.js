@@ -27,7 +27,7 @@ export default function AdminLoginPage() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-charcoal px-6">
       <form onSubmit={handleSubmit} className="w-full max-w-sm border border-white/10 bg-white p-9">
-        <div className="mb-1 font-display text-2xl font-bold uppercase text-ink">Michael Construction</div>
+        <div className="mb-1 font-display text-2xl font-bold uppercase text-ink">Maykar Professional Painting</div>
         <div className="mb-7 text-sm text-ink-faint">Panel de administración</div>
         <input
           type="password"

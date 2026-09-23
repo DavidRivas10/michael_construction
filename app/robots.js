@@ -1,6 +1,7 @@
 export default function robots() {
+  const base = process.env.NEXT_PUBLIC_SITE_URL || "https://michael-construction.vercel.app";
   return {
     rules: [{ userAgent: "*", allow: "/", disallow: "/admin" }],
-    sitemap: "https://www.michaelconstruction.com/sitemap.xml",
+    sitemap: `${base}/sitemap.xml`,
   };
 }

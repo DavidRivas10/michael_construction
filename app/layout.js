@@ -14,17 +14,23 @@ export const dynamic = "force-dynamic";
 // funciona sin problema. Mientras tanto usamos @import en globals.css, que
 // carga en el navegador del visitante y no depende de la red del build.
 
+// NEXT_PUBLIC_SITE_URL: set this in Vercel once the final custom domain is
+// bought and connected. Until then it falls back to the current live
+// deployment URL, so SEO metadata is always accurate instead of pointing at
+// a domain nobody owns yet.
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://michael-construction.vercel.app";
+
 export const metadata = {
-  metadataBase: new URL("https://www.michaelconstruction.com"),
+  metadataBase: new URL(SITE_URL),
   title: {
-    default: "Michael Construction — Painting & Home Repairs in Virginia",
-    template: "%s | Michael Construction",
+    default: "Maykar Professional Painting — Painting & Home Repairs in Virginia",
+    template: "%s | Maykar Professional Painting",
   },
   description:
     "Interior and exterior painting, plus home repairs. Clear, transparent pricing — get a free estimate in minutes.",
   openGraph: {
     type: "website",
-    siteName: "Michael Construction",
+    siteName: "Maykar Professional Painting",
   },
 };
 

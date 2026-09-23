@@ -1,5 +1,5 @@
 -- ---------------------------------------------------------------------------
--- Michael Construction — esquema de base de datos real (Supabase/Postgres)
+-- Maykar Professional Painting LLC — esquema de base de datos real (Supabase/Postgres)
 --
 -- CÓMO USAR ESTE ARCHIVO:
 -- 1. Entra a tu proyecto en supabase.com
@@ -95,16 +95,16 @@ alter table leads enable row level security;
 -- --- Datos de ejemplo (los mismos que ya tenías en modo demo) ---
 
 insert into config (id, data) values (1, '{
-  "businessName": "Michael Construction",
+  "businessName": "Maykar Professional Painting LLC",
   "heroHeadline": "The work your neighbors already recommend.",
   "heroSubheadline": "A family-owned, licensed and insured painting and repair company. Clear pricing, clean work, and results that last.",
-  "phone": "(555) 018-2394",
-  "whatsapp": "15550182394",
-  "email": "hello@michaelconstruction.com",
-  "serviceArea": "[Your City], VA and surrounding areas",
+  "phone": "(434) 760-9139",
+  "smsPhone": "+14347609139",
+  "email": "maykapainting@gmail.com",
+  "serviceArea": "Charlottesville, VA and surrounding areas",
   "licenseState": "[State]",
   "yearsInBusiness": 15,
-  "notifyEmail": "hello@michaelconstruction.com",
+  "notifyEmail": "maykapainting@gmail.com",
   "isExampleData": true
 }'::jsonb) on conflict (id) do nothing;
 

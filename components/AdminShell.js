@@ -68,7 +68,7 @@ export default function AdminShell({ active, title, description, actions, childr
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#B8862E" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <path d="M3 21h18" /><path d="M6 21V9l6-5 6 5v12" /><path d="M10 21v-6h4v6" />
           </svg>
-          <div className="font-display text-sm font-bold uppercase leading-none">Michael Construction</div>
+          <div className="font-display text-sm font-bold uppercase leading-none">Maykar Professional Painting</div>
         </div>
         <button
           onClick={() => setMenuOpen((v) => !v)}
@@ -97,7 +97,7 @@ export default function AdminShell({ active, title, description, actions, childr
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#B8862E" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <path d="M3 21h18" /><path d="M6 21V9l6-5 6 5v12" /><path d="M10 21v-6h4v6" />
           </svg>
-          <div className="font-display text-base font-bold uppercase leading-none">Michael Construction</div>
+          <div className="font-display text-base font-bold uppercase leading-none">Maykar Professional Painting</div>
         </div>
         <nav className="flex-1 px-3 py-5">
           <NavLinks active={active} />

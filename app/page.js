@@ -10,9 +10,9 @@ import TestimonialCarousel from "@/components/TestimonialCarousel";
 import FaqAccordion from "@/components/FaqAccordion";
 import LeadForm from "@/components/LeadForm";
 import Reveal from "@/components/Reveal";
-import { IconCheck, IconClock, IconHeart, IconWhatsapp, IconStar } from "@/components/Icons";
+import { IconCheck, IconClock, IconHeart, IconMessage, IconStar } from "@/components/Icons";
 import { getConfig, listReviews, listServices, listFaq } from "@/lib/db";
-import { buildWhatsAppLink } from "@/lib/whatsapp";
+import { buildSmsLink } from "@/lib/sms";
 import ServiceAreaMap from "@/components/ServiceAreaMap";
 import HeroCarousel from "@/components/HeroCarousel";
 import ServicesTabs from "@/components/ServicesTabs";
@@ -35,7 +35,7 @@ export default async function HomePage() {
     listServices(),
     listFaq(),
   ]);
-  const whatsappLink = buildWhatsAppLink(config.whatsapp);
+  const smsLink = buildSmsLink(config.smsPhone);
 
   const avgRating = reviews.length
     ? (reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length).toFixed(1)
@@ -97,14 +97,12 @@ export default async function HomePage() {
               >
                 Call Now
               </a>
-              {whatsappLink && (
+              {smsLink && (
                 <a
-                  href={whatsappLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href={smsLink}
                   className="btn-outline flex items-center gap-2 border-white bg-navy-dark/60 text-white backdrop-blur-sm hover:bg-white hover:text-charcoal"
                 >
-                  <IconWhatsapp className="h-4 w-4" /> WhatsApp
+                  <IconMessage className="h-4 w-4" /> Text Us
                 </a>
               )}
             </div>

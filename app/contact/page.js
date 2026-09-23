@@ -1,18 +1,18 @@
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 import LeadForm from "@/components/LeadForm";
-import { IconPhone, IconMapPin, IconWhatsapp } from "@/components/Icons";
+import { IconPhone, IconMapPin, IconMessage } from "@/components/Icons";
 import { getConfig } from "@/lib/db";
-import { buildWhatsAppLink } from "@/lib/whatsapp";
+import { buildSmsLink } from "@/lib/sms";
 
 export const metadata = {
   title: "Contact",
-  description: "Get in touch with Michael Construction for a free painting or home repair estimate.",
+  description: "Get in touch with Maykar Professional Painting for a free painting or home repair estimate.",
 };
 
 export default async function ContactPage() {
   const config = await getConfig();
-  const whatsappLink = buildWhatsAppLink(config.whatsapp);
+  const smsLink = buildSmsLink(config.smsPhone);
 
   return (
     <>
@@ -28,9 +28,9 @@ export default async function ContactPage() {
             <a href={`tel:${config.phone}`} className="flex items-center gap-3">
               <IconPhone className="h-5 w-5 text-gold-dark" /> {config.phone}
             </a>
-            {whatsappLink && (
-              <a href={whatsappLink} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3">
-                <IconWhatsapp className="h-5 w-5 text-gold-dark" /> Chat on WhatsApp
+            {smsLink && (
+              <a href={smsLink} className="flex items-center gap-3">
+                <IconMessage className="h-5 w-5 text-gold-dark" /> Text Us
               </a>
             )}
             <div className="flex items-center gap-3">
