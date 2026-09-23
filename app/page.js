@@ -36,6 +36,8 @@ export default async function HomePage() {
     listFaq(),
   ]);
   const smsLink = buildSmsLink(config.smsPhone);
+  const isLicensed = Boolean(config.licenseState) && !config.licenseState.startsWith("[");
+  const hasYears = Number(config.yearsInBusiness) > 0;
 
   const avgRating = reviews.length
     ? (reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length).toFixed(1)
@@ -111,7 +113,7 @@ export default async function HomePage() {
                 señales de confianza quedan como línea de texto simple. */}
             <div className="hero-anim mt-10 flex flex-wrap items-center gap-x-8 gap-y-3 border-t border-white/15 pt-6 text-[13px] font-semibold text-white/75 sm:hidden" style={{ animationDelay: "680ms" }}>
               <span className="flex items-center gap-2">
-                <IconCheck className="h-4 w-4 text-gold" /> Licensed &amp; insured
+                <IconCheck className="h-4 w-4 text-gold" /> {isLicensed ? "Licensed & insured" : "Free estimates"}
               </span>
               <span className="flex items-center gap-2">
                 <IconClock className="h-4 w-4 text-gold" /> Same-day response
@@ -126,7 +128,7 @@ export default async function HomePage() {
           <div className="-mt-9 flex max-w-lg items-stretch divide-x divide-line rounded-sm border border-line bg-white shadow-premium lg:ml-2">
             <div className="flex flex-1 items-center gap-2.5 px-5 py-4">
               <IconCheck className="h-5 w-5 shrink-0 text-gold-dark" />
-              <span className="text-[12.5px] font-bold uppercase leading-tight text-ink">Licensed &amp; insured</span>
+              <span className="text-[12.5px] font-bold uppercase leading-tight text-ink">{isLicensed ? "Licensed & insured" : "Free estimates"}</span>
             </div>
             <div className="flex flex-1 items-center gap-2.5 px-5 py-4">
               <IconClock className="h-5 w-5 shrink-0 text-gold-dark" />
@@ -142,10 +144,15 @@ export default async function HomePage() {
                   </span>
                   <span className="text-[12.5px] font-bold uppercase leading-tight text-ink">{avgRating}/5 · {reviews.length} reviews</span>
                 </>
-              ) : (
+              ) : hasYears ? (
                 <>
                   <IconHeart className="h-5 w-5 shrink-0 text-gold-dark" />
                   <span className="text-[12.5px] font-bold uppercase leading-tight text-ink">{config.yearsInBusiness}+ years</span>
+                </>
+              ) : (
+                <>
+                  <IconHeart className="h-5 w-5 shrink-0 text-gold-dark" />
+                  <span className="text-[12.5px] font-bold uppercase leading-tight text-ink">Satisfaction guaranteed</span>
                 </>
               )}
             </div>
@@ -156,6 +163,8 @@ export default async function HomePage() {
       {/* Franja de estadísticas */}
       <StatsBand
         yearsInBusiness={config.yearsInBusiness}
+        hasYears={hasYears}
+        isLicensed={isLicensed}
         avgRating={avgRating}
         reviewCount={reviews.length}
       />

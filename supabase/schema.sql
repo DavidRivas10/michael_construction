@@ -97,13 +97,13 @@ alter table leads enable row level security;
 insert into config (id, data) values (1, '{
   "businessName": "Maykar Professional Painting LLC",
   "heroHeadline": "The work your neighbors already recommend.",
-  "heroSubheadline": "A family-owned, licensed and insured painting and repair company. Clear pricing, clean work, and results that last.",
+  "heroSubheadline": "A family-owned painting and repair company. Clear pricing, clean work, and results that last.",
   "phone": "(434) 760-9139",
   "smsPhone": "+14347609139",
   "email": "maykapainting@gmail.com",
   "serviceArea": "Charlottesville, VA and surrounding areas",
   "licenseState": "[State]",
-  "yearsInBusiness": 15,
+  "yearsInBusiness": "",
   "notifyEmail": "maykapainting@gmail.com",
   "isExampleData": true
 }'::jsonb) on conflict (id) do nothing;
@@ -118,7 +118,7 @@ insert into faq (id, question, answer, sort_order) values
   ('f1', 'Is the estimate really free?', 'Yes. The range you see from the AI estimator has no cost and no obligation, and the visit to confirm the exact price is free too.', 1),
   ('f2', 'What is the price based on?', 'The type of project, the approximate size, and the current condition you tell us about, compared against the real cost of similar jobs. Michael always confirms the final number in person before work starts.', 2),
   ('f3', 'How fast do you respond?', 'Michael personally reviews every request and almost always responds the same day, by phone, text, or email.', 3),
-  ('f4', 'Are you licensed and insured?', 'Yes, we carry active license and insurance — happy to share documentation if your insurer or HOA needs it.', 4)
+  ('f4', 'Are you licensed and insured?', 'We are a family-owned local business -- reach out and we will walk you through exactly where things stand on licensing and insurance for your project.', 4)
 on conflict (id) do nothing;
 
 insert into portfolio (id, title, category, location, featured, is_example) values

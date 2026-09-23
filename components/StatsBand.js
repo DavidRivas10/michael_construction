@@ -49,7 +49,7 @@ function Ring({ children, delay, active }) {
   );
 }
 
-export default function StatsBand({ yearsInBusiness, avgRating, reviewCount }) {
+export default function StatsBand({ yearsInBusiness, hasYears, isLicensed, avgRating, reviewCount }) {
   const ref = useRef(null);
   const [active, setActive] = useState(false);
 
@@ -78,8 +78,17 @@ export default function StatsBand({ yearsInBusiness, avgRating, reviewCount }) {
       <div className="mx-auto grid max-w-6xl grid-cols-2 gap-y-10 px-6 sm:grid-cols-4 sm:divide-x sm:divide-white/10">
         <div className="flex flex-col items-center gap-3 text-center sm:px-6">
           <Ring delay={50} active={active}><IconClipboard className="h-6 w-6" /></Ring>
-          <div className="font-display text-3xl font-black text-white sm:text-4xl">{years}+</div>
-          <div className="text-[12.5px] font-bold uppercase tracking-wide text-white/55">Years in business</div>
+          {hasYears ? (
+            <>
+              <div className="font-display text-3xl font-black text-white sm:text-4xl">{years}+</div>
+              <div className="text-[12.5px] font-bold uppercase tracking-wide text-white/55">Years in business</div>
+            </>
+          ) : (
+            <>
+              <div className="font-display text-3xl font-black text-white sm:text-4xl">Local</div>
+              <div className="text-[12.5px] font-bold uppercase tracking-wide text-white/55">Family-owned &amp; operated</div>
+            </>
+          )}
         </div>
 
         <div className="flex flex-col items-center gap-3 text-center sm:px-6">
@@ -107,8 +116,17 @@ export default function StatsBand({ yearsInBusiness, avgRating, reviewCount }) {
 
         <div className="flex flex-col items-center gap-3 text-center sm:px-6">
           <Ring delay={350} active={active}><IconCheck className="h-6 w-6" /></Ring>
-          <div className="font-display text-3xl font-black text-white sm:text-4xl">Licensed</div>
-          <div className="text-[12.5px] font-bold uppercase tracking-wide text-white/55">&amp; fully insured</div>
+          {isLicensed ? (
+            <>
+              <div className="font-display text-3xl font-black text-white sm:text-4xl">Licensed</div>
+              <div className="text-[12.5px] font-bold uppercase tracking-wide text-white/55">&amp; fully insured</div>
+            </>
+          ) : (
+            <>
+              <div className="font-display text-3xl font-black text-white sm:text-4xl">Upfront</div>
+              <div className="text-[12.5px] font-bold uppercase tracking-wide text-white/55">Pricing, no surprises</div>
+            </>
+          )}
         </div>
       </div>
     </section>
