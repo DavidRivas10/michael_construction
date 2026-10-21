@@ -20,10 +20,14 @@ export default function TestimonialsAdmin({ reviews: initial }) {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ ...form, rating: Number(form.rating) }),
     });
-    const data = await res.json();
+    const data = await res.json().catch(() => ({}));
+    setSaving(false);
+    if (!res.ok) {
+      alert("No se pudo agregar el testimonio. Si el problema sigue, cierra sesión y vuelve a entrar.");
+      return;
+    }
     setReviews((r) => [data.review, ...r]);
     setForm({ author: "", rating: 5, text: "", neighborhood: "" });
-    setSaving(false);
   }
 
   async function handleApprove(id) {
@@ -42,6 +46,7 @@ export default function TestimonialsAdmin({ reviews: initial }) {
   }
 
   async function handleDelete(id) {
+    if (!confirm("¿Eliminar esta reseña?")) return;
     const prev = reviews;
     setReviews((r) => r.filter((x) => x.id !== id));
     const res = await fetch(`/api/reviews/${id}`, { method: "DELETE" });

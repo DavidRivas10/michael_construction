@@ -7,7 +7,7 @@ export async function GET() {
 }
 
 export async function PATCH(request) {
-  if (!getSession()) return NextResponse.json({ error: "No autorizado" }, { status: 401 });
+  if (!(await getSession())) return NextResponse.json({ error: "No autorizado" }, { status: 401 });
   const body = await request.json();
   const config = await updateConfig(body);
   return NextResponse.json({ config });

@@ -2,11 +2,10 @@ import Reveal from "./Reveal";
 import BeforeAfterSlider from "./BeforeAfterSlider";
 import { IconCheck } from "./Icons";
 
-// Tres comparaciones antes/después reales, con la misma foto y el mismo
-// encuadre en cada par (nada de "antes" y "después" de escenas distintas
-// forzadas a verse como una sola). Los títulos describen el tipo de
-// trabajo, no un cliente o dirección inventados — estas son fotos de
-// referencia, no un proyecto específico ya facturado.
+// Tres comparaciones antes/después con la misma foto y el mismo encuadre en
+// cada par. Son imágenes ilustrativas generadas con IA, no trabajos reales
+// del negocio — por eso cada una se etiqueta "Illustrative example" en vez
+// de mostrar una ciudad, que daría a entender un proyecto real ahí.
 const PAIRS = [
   {
     title: "Drywall Patch & Repaint",
@@ -29,7 +28,7 @@ const PAIRS = [
 // vean como una fila plana de tres cajas idénticas ("franja" de cards).
 const OFFSET_CLASS = ["lg:mt-0", "lg:mt-10", "lg:-mt-2"];
 
-export default function BeforeAfterShowcase({ location }) {
+export default function BeforeAfterShowcase() {
   return (
     <div className="relative">
       {/* Insignia flotante superpuesta a la esquina de la cuadrícula — un
@@ -49,7 +48,7 @@ export default function BeforeAfterShowcase({ location }) {
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {PAIRS.map((p, i) => (
           <Reveal key={p.title} delay={i * 90} className={OFFSET_CLASS[i]}>
-            <BeforeAfterSlider title={p.title} location={location} beforeUrl={p.beforeUrl} afterUrl={p.afterUrl} height="h-72" />
+            <BeforeAfterSlider title={p.title} location="Illustrative example" beforeUrl={p.beforeUrl} afterUrl={p.afterUrl} height="h-72" />
           </Reveal>
         ))}
       </div>

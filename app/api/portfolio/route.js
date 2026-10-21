@@ -3,6 +3,9 @@ import { listPortfolio, addPortfolioItem, uploadPortfolioPhoto } from "@/lib/db"
 import { getSession } from "@/lib/auth";
 
 const MAX_PHOTO_BYTES = 8 * 1024 * 1024; // 8MB per photo
+// Lista explícita en vez de "image/*": SVG también es image/* y puede
+// llevar JavaScript incrustado.
+const ALLOWED_PHOTO_TYPES = ["image/jpeg", "image/png", "image/webp", "image/heic", "image/heif"];
 
 export async function GET() {
   return NextResponse.json({ items: await listPortfolio() });
@@ -12,7 +15,7 @@ export async function GET() {
 // (both files optional — an item can be added with just text and photos added
 // later, though the before/after slider looks best with both).
 export async function POST(request) {
-  if (!getSession()) return NextResponse.json({ error: "No autorizado" }, { status: 401 });
+  if (!(await getSession())) return NextResponse.json({ error: "No autorizado" }, { status: 401 });
 
   const form = await request.formData();
   const title = String(form.get("title") || "").trim();
@@ -35,8 +38,8 @@ export async function POST(request) {
 
   for (const f of [beforeFile, afterFile]) {
     if (f && typeof f === "object" && f.size > 0) {
-      if (!String(f.type || "").startsWith("image/")) {
-        return NextResponse.json({ error: "Los archivos deben ser imágenes." }, { status: 400 });
+      if (!ALLOWED_PHOTO_TYPES.includes(f.type)) {
+        return NextResponse.json({ error: "Las fotos deben ser JPG, PNG, WEBP o HEIC." }, { status: 400 });
       }
       if (f.size > MAX_PHOTO_BYTES) {
         return NextResponse.json({ error: "Cada foto debe pesar menos de 8MB." }, { status: 400 });

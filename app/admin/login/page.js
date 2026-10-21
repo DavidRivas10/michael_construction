@@ -20,7 +20,8 @@ export default function AdminLoginPage() {
       router.push("/admin");
       router.refresh();
     } else {
-      setError("Contraseña incorrecta.");
+      const data = await res.json().catch(() => ({}));
+      setError(res.status === 429 ? "Demasiados intentos. Espera unos minutos." : data.error || "Contraseña incorrecta.");
     }
   }
 
@@ -39,10 +40,6 @@ export default function AdminLoginPage() {
         />
         <button type="submit" className="btn-primary w-full justify-center">Entrar</button>
         {error && <div className="mt-3 text-sm font-semibold text-red-600">{error}</div>}
-        <div className="mt-6 text-xs text-ink-faint">
-          Demo: contraseña <code className="rounded bg-paper-2 px-1.5 py-0.5">demo1234</code> (o la que se defina en{" "}
-          <code className="rounded bg-paper-2 px-1.5 py-0.5">ADMIN_PASSWORD</code>).
-        </div>
       </form>
     </div>
   );

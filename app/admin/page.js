@@ -5,7 +5,7 @@ import { requireSession } from "@/lib/auth";
 import { listLeads } from "@/lib/db";
 
 export default async function AdminDashboard() {
-  requireSession();
+  await requireSession();
   const leads = await listLeads();
 
   const nuevos = leads.filter((l) => l.estado === "nuevo").length;

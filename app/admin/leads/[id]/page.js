@@ -5,8 +5,9 @@ import { requireSession } from "@/lib/auth";
 import { getLead } from "@/lib/db";
 
 export default async function LeadDetailPage({ params }) {
-  requireSession();
-  const lead = await getLead(params.id);
+  const { id } = await params;
+  await requireSession();
+  const lead = await getLead(id);
 
   return (
     <AdminShell active="Leads" description={lead ? `Solicitud de ${lead.nombre}` : "Lead no encontrado"}>

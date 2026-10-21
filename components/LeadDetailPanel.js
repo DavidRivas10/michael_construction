@@ -17,9 +17,13 @@ export default function LeadDetailPanel({ lead: initialLead }) {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(partial),
     });
-    const data = await res.json();
-    setLead(data.lead);
+    const data = await res.json().catch(() => ({}));
     setSaving(false);
+    if (!res.ok) {
+      alert("No se pudo guardar. Si el problema sigue, cierra sesión y vuelve a entrar.");
+      return;
+    }
+    setLead(data.lead);
   }
 
   return (

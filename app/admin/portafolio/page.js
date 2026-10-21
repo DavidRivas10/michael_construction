@@ -4,7 +4,7 @@ import { requireSession } from "@/lib/auth";
 import { listPortfolio } from "@/lib/db";
 
 export default async function AdminPortafolioPage() {
-  requireSession();
+  await requireSession();
   const items = await listPortfolio();
 
   return (

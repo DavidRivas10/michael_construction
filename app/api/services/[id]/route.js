@@ -3,9 +3,10 @@ import { updateService } from "@/lib/db";
 import { getSession } from "@/lib/auth";
 
 export async function PATCH(request, { params }) {
-  if (!getSession()) return NextResponse.json({ error: "No autorizado" }, { status: 401 });
+  const { id } = await params;
+  if (!(await getSession())) return NextResponse.json({ error: "No autorizado" }, { status: 401 });
   const body = await request.json();
-  const service = await updateService(params.id, body);
+  const service = await updateService(id, body);
   if (!service) return NextResponse.json({ error: "No encontrado" }, { status: 404 });
   return NextResponse.json({ service });
 }

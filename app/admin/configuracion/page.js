@@ -4,7 +4,7 @@ import { requireSession } from "@/lib/auth";
 import { getConfig } from "@/lib/db";
 
 export default async function AdminConfigPage() {
-  requireSession();
+  await requireSession();
   const config = await getConfig();
 
   return (

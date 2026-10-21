@@ -33,9 +33,13 @@ export default function ConfigForm({ config: initial }) {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(config),
     });
-    const data = await res.json();
-    setConfig(data.config);
+    const data = await res.json().catch(() => ({}));
     setSaving(false);
+    if (!res.ok) {
+      alert("No se pudieron guardar los cambios. Si el problema sigue, cierra sesión y vuelve a entrar.");
+      return;
+    }
+    setConfig(data.config);
     setSaved(true);
   }
 

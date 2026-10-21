@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { checkPassword, createSessionToken, SESSION_COOKIE_NAME } from "@/lib/auth";
+import { checkPassword, createSessionToken, SESSION_COOKIE_NAME, SESSION_MAX_AGE_SECONDS } from "@/lib/auth";
 import { rateLimit, getClientIp } from "@/lib/rateLimit";
 
 export async function POST(request) {
@@ -21,7 +21,7 @@ export async function POST(request) {
     httpOnly: true,
     sameSite: "lax",
     secure: process.env.NODE_ENV === "production",
-    maxAge: 60 * 60 * 24 * 7,
+    maxAge: SESSION_MAX_AGE_SECONDS,
     path: "/",
   });
   return res;

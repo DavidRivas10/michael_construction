@@ -4,7 +4,7 @@ import { requireSession } from "@/lib/auth";
 import { listPricing } from "@/lib/db";
 
 export default async function AdminPricingPage() {
-  requireSession();
+  await requireSession();
   const pricing = await listPricing();
 
   return (

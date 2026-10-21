@@ -179,8 +179,9 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* Before / After — comparador arrastrable con fotos reales, la
-          sección visualmente más fuerte del sitio. */}
+      {/* Before / After — comparador arrastrable, la sección visualmente más
+          fuerte del sitio. Las fotos son ilustrativas (generadas con IA), por
+          eso el texto lo dice; los trabajos reales van en /portfolio. */}
       <section className="mx-auto max-w-6xl px-6 py-24">
         <Reveal>
           <div className="mx-auto mb-3 max-w-xl text-center">
@@ -188,10 +189,10 @@ export default async function HomePage() {
             <h2 className="font-display text-4xl font-bold uppercase text-ink">Drag to compare</h2>
           </div>
           <p className="mx-auto mb-12 max-w-md text-center text-sm text-ink-faint">
-            Slide the control on each photo — same angle, before and after the crew shows up.
+            Illustrative examples of the results we deliver — slide the control on each photo to compare.
           </p>
         </Reveal>
-        <BeforeAfterShowcase location={config.serviceArea} />
+        <BeforeAfterShowcase />
       </section>
 
       {/* Services — layout de pestañas (CMS/admin) */}

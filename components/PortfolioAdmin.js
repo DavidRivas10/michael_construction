@@ -26,7 +26,7 @@ export default function PortfolioAdmin({ items: initial }) {
     if (afterFile) body.append("afterFile", afterFile);
 
     const res = await fetch("/api/portfolio", { method: "POST", body });
-    const data = await res.json();
+    const data = await res.json().catch(() => ({}));
 
     if (!res.ok) {
       setError(data.error || "No se pudo agregar el proyecto.");
@@ -101,7 +101,7 @@ export default function PortfolioAdmin({ items: initial }) {
             <div className="mb-1.5 text-xs font-bold uppercase tracking-wide text-ink-faint">Foto "antes"</div>
             <input
               type="file"
-              accept="image/*"
+              accept="image/jpeg,image/png,image/webp,image/heic,image/heif"
               onChange={(e) => setBeforeFile(e.target.files?.[0] || null)}
               className="block w-full text-xs file:mr-3 file:rounded-[3px] file:border-0 file:bg-paper-2 file:px-3 file:py-2 file:text-xs file:font-bold"
             />
@@ -110,13 +110,13 @@ export default function PortfolioAdmin({ items: initial }) {
             <div className="mb-1.5 text-xs font-bold uppercase tracking-wide text-ink-faint">Foto "después"</div>
             <input
               type="file"
-              accept="image/*"
+              accept="image/jpeg,image/png,image/webp,image/heic,image/heif"
               onChange={(e) => setAfterFile(e.target.files?.[0] || null)}
               className="block w-full text-xs file:mr-3 file:rounded-[3px] file:border-0 file:bg-paper-2 file:px-3 file:py-2 file:text-xs file:font-bold"
             />
           </label>
           <p className="text-[11px] leading-relaxed text-ink-faint">
-            Sube al menos una foto (antes o después) — cada una debe pesar menos de 8MB (JPG o PNG). Un proyecto sin
+            Sube al menos una foto (antes o después) — cada una debe pesar menos de 8MB (JPG, PNG, WEBP o HEIC). Un proyecto sin
             ninguna foto ya no se puede guardar, para que el portafolio público nunca muestre tarjetas vacías.
           </p>
 

@@ -15,15 +15,25 @@ export default function FaqAdmin({ items: initial }) {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(form),
     });
-    const data = await res.json();
+    const data = await res.json().catch(() => ({}));
+    setSaving(false);
+    if (!res.ok) {
+      alert("No se pudo agregar la pregunta. Si el problema sigue, cierra sesión y vuelve a entrar.");
+      return;
+    }
     setItems((it) => [...it, data.item]);
     setForm({ question: "", answer: "" });
-    setSaving(false);
   }
 
   async function handleDelete(id) {
+    if (!confirm("¿Eliminar esta pregunta del sitio?")) return;
+    const prev = items;
     setItems((it) => it.filter((i) => i.id !== id));
-    await fetch(`/api/faq/${id}`, { method: "DELETE" });
+    const res = await fetch(`/api/faq/${id}`, { method: "DELETE" });
+    if (!res.ok) {
+      alert("No se pudo eliminar la pregunta. Intenta de nuevo.");
+      setItems(prev);
+    }
   }
 
   return (

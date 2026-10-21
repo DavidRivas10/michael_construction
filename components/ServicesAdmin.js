@@ -37,9 +37,13 @@ function ServiceCard({ service, onSaved }) {
         items: items.split("\n").map((s) => s.trim()).filter(Boolean),
       }),
     });
-    const data = await res.json();
-    onSaved(data.service);
+    const data = await res.json().catch(() => ({}));
     setSaving(false);
+    if (!res.ok) {
+      alert("No se pudo guardar el servicio. Si el problema sigue, cierra sesión y vuelve a entrar.");
+      return;
+    }
+    onSaved(data.service);
     setSaved(true);
   }
 

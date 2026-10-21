@@ -29,13 +29,15 @@ export async function POST(request) {
 
   const lead = await createLead({ ...body, ...clean, urgente, hasUrgentWord });
   const notifyResult = await notifyNewLead(lead);
-  const updatedLead = (await updateLead(lead.id, { notified: notifyResult })) || lead;
+  await updateLead(lead.id, { notified: notifyResult });
 
-  return NextResponse.json({ ok: true, lead: updatedLead, notified: notifyResult }, { status: 201 });
+  // Solo confirmación — el lead completo y el resultado de las
+  // notificaciones son datos internos del panel admin.
+  return NextResponse.json({ ok: true }, { status: 201 });
 }
 
 export async function GET() {
-  if (!getSession()) {
+  if (!(await getSession())) {
     return NextResponse.json({ error: "No autorizado" }, { status: 401 });
   }
   return NextResponse.json({ leads: await listLeads() });

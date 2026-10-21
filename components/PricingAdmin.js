@@ -36,12 +36,16 @@ export default function PricingAdmin({ pricing: initial }) {
   async function saveRule(rule) {
     setSavingId(rule.serviceId);
     setSavedId(null);
-    await fetch(`/api/pricing/${rule.serviceId}`, {
+    const res = await fetch(`/api/pricing/${rule.serviceId}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(rule),
     });
     setSavingId(null);
+    if (!res.ok) {
+      alert("No se pudieron guardar los precios. Si el problema sigue, cierra sesión y vuelve a entrar.");
+      return;
+    }
     setSavedId(rule.serviceId);
   }
 
@@ -126,9 +130,9 @@ export default function PricingAdmin({ pricing: initial }) {
             disabled={savingId === rule.serviceId}
             className="btn-primary text-sm disabled:opacity-60"
           >
-            {savingId === rule.serviceId ? "Saving…" : "Save"}
+            {savingId === rule.serviceId ? "Guardando…" : "Guardar precios"}
           </button>
-          {savedId === rule.serviceId && <span className="ml-3 text-sm font-semibold text-ink">Saved</span>}
+          {savedId === rule.serviceId && <span className="ml-3 text-sm font-semibold text-ink">Guardado ✓</span>}
         </div>
       ))}
     </div>

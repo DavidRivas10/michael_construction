@@ -4,7 +4,7 @@ import { requireSession } from "@/lib/auth";
 import { listFaq } from "@/lib/db";
 
 export default async function AdminPreguntasPage() {
-  requireSession();
+  await requireSession();
   const items = await listFaq();
 
   return (

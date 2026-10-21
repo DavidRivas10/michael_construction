@@ -4,7 +4,7 @@ import { requireSession } from "@/lib/auth";
 import { listServices } from "@/lib/db";
 
 export default async function AdminServiciosPage() {
-  requireSession();
+  await requireSession();
   const services = await listServices();
 
   return (

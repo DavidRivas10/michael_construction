@@ -55,7 +55,10 @@ export default async function SiteFooter() {
         </div>
       </div>
       <div className="relative mx-auto mt-10 flex max-w-6xl flex-col gap-2 border-t border-white/10 px-6 pt-6 text-xs text-white/45 sm:flex-row sm:items-center sm:justify-between">
-        <span>© {new Date().getFullYear()} {config.businessName}. All rights reserved.</span>
+        <span>
+          © {new Date().getFullYear()} {config.businessName}. All rights reserved. ·{" "}
+          <Link href="/privacy" className="transition hover:text-white">Privacy Policy</Link>
+        </span>
         {config.licenseState && !config.licenseState.startsWith("[") && (
           <span>Licensed in {config.licenseState} &middot; Fully insured</span>
         )}

@@ -4,7 +4,7 @@ import { requireSession } from "@/lib/auth";
 import { listLeads } from "@/lib/db";
 
 export default async function AdminLeadsPage() {
-  requireSession();
+  await requireSession();
   const leads = await listLeads();
 
   return (

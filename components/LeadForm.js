@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 
 export default function LeadForm({
   canalOrigen = "formulario",
@@ -132,6 +133,10 @@ export default function LeadForm({
       <button type="submit" disabled={status === "sending"} className="btn-primary mt-1 justify-center disabled:opacity-60">
         {status === "sending" ? "Sending…" : ctaLabel}
       </button>
+      <p className="text-[11.5px] leading-relaxed text-ink-faint">
+        By sending, you agree to be contacted by phone, text, or email about your request. See our{" "}
+        <Link href="/privacy" className="underline hover:text-ink">Privacy Policy</Link>.
+      </p>
       {status === "error" && (
         <div className="text-sm font-semibold text-red-600">
           {errorMsg || "Something went wrong. Please try again or call us directly."}
