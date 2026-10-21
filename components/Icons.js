@@ -1,3 +1,5 @@
+// Algunos trazos están basados en Feather Icons (https://feathericons.com),
+// licencia MIT — uso libre, incluido comercial.
 export function IconPhone(props) {
   return (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" {...props}>

@@ -79,6 +79,7 @@ export default function LeadForm({
       />
       <input
         required
+        aria-label="Full name"
         placeholder="Full name"
         value={form.nombre}
         onChange={(e) => update("nombre", e.target.value)}
@@ -86,6 +87,7 @@ export default function LeadForm({
       />
       <input
         required
+        aria-label="Phone number"
         placeholder="Phone number"
         value={form.telefono}
         onChange={(e) => update("telefono", e.target.value)}
@@ -95,12 +97,14 @@ export default function LeadForm({
         <>
           <input
             type="email"
+            aria-label="Email (optional)"
             placeholder="Email (optional)"
             value={form.email}
             onChange={(e) => update("email", e.target.value)}
             className={fieldClass}
           />
           <select
+            aria-label="What do you need?"
             value={form.tipoTrabajo}
             onChange={(e) => update("tipoTrabajo", e.target.value)}
             className={`${fieldClass} text-ink-soft`}
@@ -111,6 +115,7 @@ export default function LeadForm({
             <option value="reparacion">Home repairs</option>
           </select>
           <textarea
+            aria-label="Tell us briefly about the project (optional)"
             placeholder="Tell us briefly about the project (optional)"
             value={form.mensaje}
             onChange={(e) => update("mensaje", e.target.value)}

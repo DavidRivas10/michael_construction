@@ -96,12 +96,14 @@ export default function ReviewForm() {
 
       <input
         required
+        aria-label="Your name"
         placeholder="Your name"
         value={form.author}
         onChange={(e) => update("author", e.target.value)}
         className={fieldClass}
       />
       <input
+        aria-label="Neighborhood or city (optional)"
         placeholder="Neighborhood or city (optional)"
         value={form.neighborhood}
         onChange={(e) => update("neighborhood", e.target.value)}
@@ -110,6 +112,7 @@ export default function ReviewForm() {
       <textarea
         required
         rows={4}
+        aria-label="What was your experience like?"
         placeholder="What was your experience like?"
         value={form.text}
         onChange={(e) => update("text", e.target.value)}
