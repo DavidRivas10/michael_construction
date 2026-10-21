@@ -72,7 +72,7 @@ export default function WhyChooseUs({ config }) {
             <div className="absolute -bottom-5 -right-5 flex h-24 w-24 flex-col items-center justify-center rounded-full border-4 border-paper bg-navy-dark text-center shadow-premium">
               <IconCheck className="h-5 w-5 text-gold" />
               <span className="mt-1 px-2 text-[10px] font-extrabold uppercase leading-tight tracking-wide text-white">
-                Satisfaction guaranteed
+                Clear pricing
               </span>
             </div>
           </div>

@@ -127,7 +127,7 @@ export default function LeadForm({
             onChange={(e) => update("confirmaUrgencia", e.target.checked)}
             className="mt-0.5"
           />
-          This is an emergency (active leak, safety issue) — text/call me right away.
+          This is urgent (active leak, safety issue) — please contact me as soon as possible.
         </label>
       )}
       <button type="submit" disabled={status === "sending"} className="btn-primary mt-1 justify-center disabled:opacity-60">

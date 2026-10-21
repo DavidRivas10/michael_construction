@@ -86,7 +86,7 @@ export default function StatsBand({ yearsInBusiness, hasYears, isLicensed, avgRa
           ) : (
             <>
               <div className="font-display text-3xl font-black text-white sm:text-4xl">Local</div>
-              <div className="text-[12.5px] font-bold uppercase tracking-wide text-white/55">Family-owned &amp; operated</div>
+              <div className="text-[12.5px] font-bold uppercase tracking-wide text-white/55">Charlottesville-based</div>
             </>
           )}
         </div>

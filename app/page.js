@@ -152,7 +152,7 @@ export default async function HomePage() {
               ) : (
                 <>
                   <IconHeart className="h-5 w-5 shrink-0 text-gold-dark" />
-                  <span className="text-[12.5px] font-bold uppercase leading-tight text-ink">Satisfaction guaranteed</span>
+                  <span className="text-[12.5px] font-bold uppercase leading-tight text-ink">Clear, upfront pricing</span>
                 </>
               )}
             </div>
@@ -175,7 +175,7 @@ export default async function HomePage() {
           <div className="group flex items-center gap-2.5"><IconCheck className="h-5 w-5 text-gold-dark transition-transform duration-200 group-hover:scale-[1.15] group-hover:-rotate-[4deg]" />Free estimates</div>
           <div className="group flex items-center gap-2.5"><IconClock className="h-5 w-5 text-gold-dark transition-transform duration-200 group-hover:scale-[1.15] group-hover:-rotate-[4deg]" />Same-day response</div>
           <div className="group flex items-center gap-2.5"><IconHeart className="h-5 w-5 text-gold-dark transition-transform duration-200 group-hover:scale-[1.15] group-hover:-rotate-[4deg]" />Clear, upfront pricing</div>
-          <div className="group flex items-center gap-2.5"><IconCheck className="h-5 w-5 text-gold-dark transition-transform duration-200 group-hover:scale-[1.15] group-hover:-rotate-[4deg]" />Work guaranteed</div>
+          <div className="group flex items-center gap-2.5"><IconCheck className="h-5 w-5 text-gold-dark transition-transform duration-200 group-hover:scale-[1.15] group-hover:-rotate-[4deg]" />Painting + home repairs</div>
         </div>
       </section>
 

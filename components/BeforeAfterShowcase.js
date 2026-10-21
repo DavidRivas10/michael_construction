@@ -41,7 +41,7 @@ export default function BeforeAfterShowcase() {
       >
         <IconCheck className="h-5 w-5 text-charcoal" />
         <span className="mt-0.5 px-2 text-[10px] font-extrabold uppercase leading-tight tracking-wide text-charcoal">
-          Work guaranteed
+          Drag to compare
         </span>
       </div>
 

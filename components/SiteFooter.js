@@ -18,7 +18,7 @@ export default async function SiteFooter() {
         }}
       />
 
-      <div className="relative mx-auto grid max-w-6xl grid-cols-1 gap-10 px-6 sm:grid-cols-2 lg:grid-cols-[1.3fr_1fr_1fr_1fr]">
+      <div className="relative mx-auto grid max-w-6xl grid-cols-1 gap-10 px-6 sm:grid-cols-2 lg:grid-cols-[1.3fr_1fr_1fr]">
         <div>
           <LogoMark variant="light" tagline />
           <p className="mt-4 max-w-xs text-sm leading-relaxed text-white/60">
@@ -32,14 +32,6 @@ export default async function SiteFooter() {
             <li><Link href="/services" className="transition hover:text-white">Exterior painting</Link></li>
             <li><Link href="/services" className="transition hover:text-white">Home repairs</Link></li>
             <li><Link href="/estimate" className="transition hover:text-white">AI estimate</Link></li>
-          </ul>
-        </div>
-        <div>
-          <div className="mb-3 text-xs font-bold uppercase tracking-wide text-gold">Working hours</div>
-          <ul className="space-y-2 text-sm text-white/75">
-            <li>Mon – Sat: 7am – 6pm</li>
-            <li>Sunday: Closed</li>
-            <li>Emergency calls: 24/7</li>
           </ul>
         </div>
         <div>
