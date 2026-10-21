@@ -93,16 +93,18 @@ export default async function HomePage() {
             </p>
             <div className="hero-anim flex flex-wrap gap-4" style={{ animationDelay: "560ms" }}>
               <Link href="/estimate" className="btn-primary">Get a Free Estimate</Link>
+              {/* "!" porque .btn-outline vive fuera de @layer en globals.css y sus
+                  colores oscuros le ganan a las utilidades normales. */}
               <a
                 href={`tel:${config.phone}`}
-                className="btn-outline border-white bg-navy-dark/60 text-white backdrop-blur-sm hover:bg-white hover:text-charcoal"
+                className="btn-outline !border-white bg-navy-dark/60 !text-white backdrop-blur-sm hover:!bg-white hover:!text-charcoal"
               >
                 Call Now
               </a>
               {smsLink && (
                 <a
                   href={smsLink}
-                  className="btn-outline flex items-center gap-2 border-white bg-navy-dark/60 text-white backdrop-blur-sm hover:bg-white hover:text-charcoal"
+                  className="btn-outline flex items-center gap-2 !border-white bg-navy-dark/60 !text-white backdrop-blur-sm hover:!bg-white hover:!text-charcoal"
                 >
                   <IconMessage className="h-4 w-4" /> Text Us
                 </a>
