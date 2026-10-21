@@ -49,6 +49,7 @@ export default async function RootLayout({ children }) {
     telephone: config.phone,
     email: config.email,
     areaServed: config.serviceArea,
+    ...(config.address ? { address: config.address } : {}),
     priceRange: "$$",
     ...(config.licenseState && !config.licenseState.startsWith("[")
       ? { hasCredential: `Licensed in ${config.licenseState}` }

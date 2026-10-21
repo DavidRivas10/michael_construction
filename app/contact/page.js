@@ -33,8 +33,14 @@ export default async function ContactPage() {
                 <IconMessage className="h-5 w-5 text-gold-dark" /> Text Us
               </a>
             )}
-            <div className="flex items-center gap-3">
-              <IconMapPin className="h-5 w-5 text-gold-dark" /> {config.serviceArea}
+            <div className="flex items-start gap-3">
+              <IconMapPin className="mt-0.5 h-5 w-5 shrink-0 text-gold-dark" />
+              <span>
+                {config.address && <span className="block">{config.address}</span>}
+                <span className={config.address ? "block text-sm font-semibold text-ink-soft" : undefined}>
+                  Serving {config.serviceArea}
+                </span>
+              </span>
             </div>
           </div>
         </div>

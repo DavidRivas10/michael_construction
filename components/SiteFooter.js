@@ -47,7 +47,10 @@ export default async function SiteFooter() {
           <ul className="space-y-2.5 text-sm text-white/75">
             <li className="flex items-center gap-2"><IconPhone className="h-3.5 w-3.5 text-white/40" />{config.phone}</li>
             <li>{config.email}</li>
-            <li className="flex items-center gap-2"><IconMapPin className="h-3.5 w-3.5 text-white/40" />{config.serviceArea}</li>
+            <li className="flex items-start gap-2">
+              <IconMapPin className="mt-0.5 h-3.5 w-3.5 shrink-0 text-white/40" />
+              <span>{config.address || config.serviceArea}</span>
+            </li>
           </ul>
         </div>
       </div>

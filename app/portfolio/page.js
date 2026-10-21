@@ -18,7 +18,7 @@ export default async function PortfolioPage() {
         <div className="eyebrow mb-3">Portfolio</div>
         <h1 className="mb-4 font-display text-5xl font-black uppercase text-ink">Real work, real results</h1>
         <p className="mx-auto max-w-xl text-lg text-ink-soft">
-          Michael uploads these photos directly from the admin panel — no developer needed.
+          Before-and-after photos from recent projects around {config.serviceArea}.
         </p>
       </section>
 
