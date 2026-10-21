@@ -27,7 +27,8 @@ export default async function PrivacyPage() {
           <p>
             When you request an estimate, send a message, or leave a review, we receive the information you type in:
             your name, phone number, email address (if you give one), and the details of your project or review. We
-            don&apos;t use advertising or tracking cookies.
+            don&apos;t use advertising or tracking cookies of our own. Pages that show a map load it from Google Maps,
+            which may set its own cookies under Google&apos;s privacy policy.
           </p>
 
           <h2 className="pt-2 font-display text-2xl font-bold uppercase text-ink">How we use it</h2>
